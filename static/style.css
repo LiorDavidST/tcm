@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  font-family: 'Assistant', sans-serif;
+  direction: rtl;
+  background: #f4f7fa;
+  color: #333;
+}
+
+header {
+  background: linear-gradient(90deg, #0e1e40, #003060);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin: 0.5rem 0;
+}
+
+header p {
+  font-size: 1.2rem;
+}
+
+.logo {
+  font-size: 3rem;
+  font-weight: bold;
+  letter-spacing: 0.5rem;
+  background: linear-gradient(90deg, #00ffcc, #00ccff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section {
+  padding: 4rem 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.section h2 {
+  color: #0e1e40;
+  margin-bottom: 1rem;
+}
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.service {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.contact {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+form input,
+form textarea,
+form button {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+form button {
+  background-color: #0e1e40;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+footer {
+  background: #0e1e40;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
