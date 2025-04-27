@@ -2,22 +2,6 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// קריאת קובץ env
-function parseEnv($path) {
-    $vars = [];
-    if (!file_exists($path)) return $vars;
-    foreach (file($path) as $line) {
-        if (strpos(trim($line), '#') === 0) continue;
-        if (!strpos($line, '=')) continue;
-        list($name, $value) = explode('=', trim($line), 2);
-        $vars[$name] = $value;
-    }
-    return $vars;
-}
-
-// טען את משתני הסביבה
-$env = parseEnv(__DIR__ . '/.env');
-
 require 'src/Exception.php';
 require 'src/PHPMailer.php';
 require 'src/SMTP.php';
@@ -28,16 +12,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         // הגדרות שרת SMTP
         $mail->isSMTP();
-        $mail->Host = $env['MAIL_HOST'];
+        $mail->Host = 'mail.privateemail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = $env['MAIL_USERNAME'];
-        $mail->Password = $env['MAIL_PASSWORD'];
-        $mail->SMTPSecure = $env['MAIL_ENCRYPTION'];
-        $mail->Port = $env['MAIL_PORT'];
+        $mail->Username = 'info@tcm-solutions.com'; // כתובת המייל שלך
+        $mail->Password = '***הסיסמה שלך***'; // סיסמת התיבה
+        $mail->SMTPSecure = 'tls'; // או ssl אם תבחר פורט 465
+        $mail->Port = 587; // פורט TLS
 
         // מאפייני המייל
-        $mail->setFrom($env['MAIL_FROM'], 'Website Contact Form');
-        $mail->addAddress($env['MAIL_FROM']); // לעצמך
+        $mail->setFrom('info@tcm-solutions.com', 'Website Contact Form');
+        $mail->addAddress('info@tcm-solutions.com'); // לעצמך
 
         $name = htmlspecialchars($_POST['name']);
         $email = htmlspecialchars($_POST['email']);
@@ -50,7 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->send();
         echo 'success';
     } catch (Exception $e) {
-        echo 'error';
+        // כאן מודפסים פרטי השגיאה המלאים
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
     }
 }
 ?>
