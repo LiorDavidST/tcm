@@ -1,4 +1,9 @@
 <?php
+// ✅ מוודא שהשגיאות יוצגו על המסך
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -11,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         $mail->isSMTP();
-        $mail->SMTPDebug = 2; // ✅ מוסיף הדפסת דיבאג
-        $mail->Debugoutput = 'html'; // ✅ שההדפסות יהיו יפות
+        $mail->SMTPDebug = 2; // ✅ הדפסת דיבאג מלא
+        $mail->Debugoutput = 'html'; // ✅ הדפסת דיבאג בצורה נוחה
         $mail->Host = getenv('MAIL_HOST');
         $mail->SMTPAuth = true;
         $mail->Username = getenv('MAIL_USERNAME');
