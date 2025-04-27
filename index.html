@@ -1,38 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-$1  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-44RRNTP1SM"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-44RRNTP1SM');
-  </script>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TCM - Custom Solutions for Your Organization</title>
+  <title>TCM - Software Solutions & Academy</title>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/style.css">
-  <style>
-    .services-section {
-      text-align: center;
-    }
-    .services {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1cm;
-      justify-items: center;
-      margin-top: 2rem;
-    }
-    .service {
-      background: white;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      width: 90%;
-      max-width: 220px;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -42,32 +15,30 @@ $1  <!-- Google tag (gtag.js) -->
   </header>
 
   <section class="section services-section">
-    <h2>Our Services</h2>
+    <h2>Our Divisions</h2>
     <div class="services">
-      <div class="service">Custom Software Development</div>
-      <div class="service">Training on Software and AI Tools</div>
-      <div class="service">Organizational Consulting & Digital Transformation</div>
-      <div class="service">Change Management</div>
-      <div class="service">Service Experience Improvement</div>
-      <div class="service">Cloud-Based Solutions & Infrastructure</div>
-      <div class="service">Employee Training Programs & Workshops</div>
-      <div class="service">Process Optimization & Workflow Automation</div>
+      <div class="service">SOFTWARE SOLUTIONS</div>
+      <div class="service">TCM ACADEMY</div>
     </div>
   </section>
 
   <section class="section contact">
     <h2>Contact Us</h2>
-    <form>
-      <input type="text" placeholder="Full Name">
-      <input type="email" placeholder="Email">
-      <input type="tel" placeholder="Phone">
-      <textarea rows="4" placeholder="How can we help you?"></textarea>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="tel" name="phone" placeholder="Phone">
+      <textarea name="message" rows="4" placeholder="How can we help you?" required></textarea>
       <button type="submit">Submit</button>
     </form>
+    <div id="form-message" style="margin-top: 1rem; text-align: center; font-weight: bold;"></div>
   </section>
 
   <footer>
     © 2025 TCM - All rights reserved
   </footer>
+
+  <!-- קישור לקובץ ה-JS החיצוני -->
+  <script src="static/script.js"></script>
 </body>
 </html>
