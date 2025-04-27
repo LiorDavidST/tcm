@@ -4,6 +4,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// ✅ הדפסה לבדיקה אם בכלל נכנסו לקובץ
+file_put_contents('log.txt', date('Y-m-d H:i:s') . " - Got POST\n", FILE_APPEND);
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -16,8 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         $mail->isSMTP();
-        $mail->SMTPDebug = 2; // ✅ הדפסת דיבאג מלא
-        $mail->Debugoutput = 'html'; // ✅ הדפסת דיבאג בצורה נוחה
+        $mail->SMTPDebug = 2; // ✅ הדפסת דיבאג SMTP
+        $mail->Debugoutput = 'html';
         $mail->Host = getenv('MAIL_HOST');
         $mail->SMTPAuth = true;
         $mail->Username = getenv('MAIL_USERNAME');
