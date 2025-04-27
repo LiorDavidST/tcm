@@ -10,18 +10,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail = new PHPMailer(true);
 
     try {
-        // הגדרות שרת SMTP
         $mail->isSMTP();
-        $mail->Host = 'mail.privateemail.com';
+        $mail->SMTPDebug = 2; // ✅ מוסיף הדפסת דיבאג
+        $mail->Debugoutput = 'html'; // ✅ שההדפסות יהיו יפות
+        $mail->Host = getenv('MAIL_HOST');
         $mail->SMTPAuth = true;
-        $mail->Username = 'info@tcm-solutions.com'; // כתובת המייל שלך
-        $mail->Password = '***הסיסמה שלך***'; // סיסמת התיבה
-        $mail->SMTPSecure = 'tls'; // או ssl אם תבחר פורט 465
-        $mail->Port = 587; // פורט TLS
+        $mail->Username = getenv('MAIL_USERNAME');
+        $mail->Password = getenv('MAIL_PASSWORD');
+        $mail->SMTPSecure = getenv('MAIL_ENCRYPTION');
+        $mail->Port = getenv('MAIL_PORT');
 
-        // מאפייני המייל
-        $mail->setFrom('info@tcm-solutions.com', 'Website Contact Form');
-        $mail->addAddress('info@tcm-solutions.com'); // לעצמך
+        $mail->setFrom(getenv('MAIL_FROM'), 'Website Contact Form');
+        $mail->addAddress(getenv('MAIL_FROM'));
 
         $name = htmlspecialchars($_POST['name']);
         $email = htmlspecialchars($_POST['email']);
@@ -32,10 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Body = "Name: $name\nEmail: $email\nPhone: $phone\n\nMessage:\n$message\n";
 
         $mail->send();
-        echo 'success';
+        echo '✅ Message sent successfully!';
     } catch (Exception $e) {
-        // כאן מודפסים פרטי השגיאה המלאים
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
+        echo '❌ Mailer Error: ' . $mail->ErrorInfo;
     }
 }
 ?>
