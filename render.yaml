@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: my-php-site
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
