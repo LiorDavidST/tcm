@@ -24,14 +24,16 @@
 
   <section class="section contact">
     <h2>Contact Us</h2>
-    <form id="contact-form" action="send_mail.php" method="POST">
+    <form id="contact-form">
       <input type="text" name="name" placeholder="Full Name" required>
       <input type="email" name="email" placeholder="Email" required>
       <input type="tel" name="phone" placeholder="Phone">
       <textarea name="message" rows="4" placeholder="How can we help you?" required></textarea>
       <button type="submit">Submit</button>
+
+      <!-- הודעה תוצג כאן -->
+      <div id="form-message" style="margin-top: 1rem; text-align: center; font-weight: bold;"></div>
     </form>
-    <div id="form-message" style="margin-top: 1rem; text-align: center; font-weight: bold;"></div>
   </section>
 
   <footer>
