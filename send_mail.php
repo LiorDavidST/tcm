@@ -1,48 +1,70 @@
 <?php
-// ✅ מוודא שהשגיאות יוצגו על המסך
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// ✅ הדפסה לבדיקה אם בכלל נכנסו לקובץ
-file_put_contents('log.txt', date('Y-m-d H:i:s') . " - Got POST\n", FILE_APPEND);
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'src/Exception.php';
 require 'src/PHPMailer.php';
 require 'src/SMTP.php';
+require 'src/Exception.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// טעינת משתני סביבה
+$smtpHost   = $_ENV['SMTP_HOST']   ?? '';
+$smtpUser   = $_ENV['SMTP_USER']   ?? '';
+$smtpPass   = $_ENV['SMTP_PASS']   ?? '';
+$smtpPort   = $_ENV['SMTP_PORT']   ?? 465;
+$smtpSecure = $_ENV['SMTP_SECURE'] ?? 'ssl';
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name    = $_POST["name"]    ?? '';
+    $email   = $_POST["email"]   ?? '';
+    $phone   = $_POST["phone"]   ?? '';
+    $message = $_POST["message"] ?? '';
+
     $mail = new PHPMailer(true);
 
     try {
+        // הגדרות SMTP
         $mail->isSMTP();
-        $mail->SMTPDebug = 2; // ✅ הדפסת דיבאג SMTP
-        $mail->Debugoutput = 'html';
-        $mail->Host = getenv('MAIL_HOST');
-        $mail->SMTPAuth = true;
-        $mail->Username = getenv('MAIL_USERNAME');
-        $mail->Password = getenv('MAIL_PASSWORD');
-        $mail->SMTPSecure = getenv('MAIL_ENCRYPTION');
-        $mail->Port = getenv('MAIL_PORT');
+        $mail->Host       = $smtpHost;
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $smtpUser;
+        $mail->Password   = $smtpPass;
+        $mail->SMTPSecure = $smtpSecure;
+        $mail->Port       = $smtpPort;
 
-        $mail->setFrom(getenv('MAIL_FROM'), 'Website Contact Form');
-        $mail->addAddress(getenv('MAIL_FROM'));
+        // בדיקה ודיבוג על FROM
+        error_log("📬 SMTP_USER from env: " . $smtpUser);
+        if (!$smtpUser || !filter_var($smtpUser, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Invalid FROM address: '$smtpUser'");
+        }
 
-        $name = htmlspecialchars($_POST['name']);
-        $email = htmlspecialchars($_POST['email']);
-        $phone = htmlspecialchars($_POST['phone']);
-        $message = htmlspecialchars($_POST['message']);
+        // הגדרת השולח
+        $mail->setFrom($smtpUser, 'Website Contact Form');
+        $mail->addAddress($smtpUser);
+        if ($email) {
+            $mail->addReplyTo($email, $name);
+        }
 
+        // תוכן המייל
+        $mail->isHTML(true);
         $mail->Subject = 'New Contact Form Submission';
-        $mail->Body = "Name: $name\nEmail: $email\nPhone: $phone\n\nMessage:\n$message\n";
+        $mail->Body    = "
+            <h3>New message from your website</h3>
+            <p><strong>Name:</strong> {$name}</p>
+            <p><strong>Email:</strong> {$email}</p>
+            <p><strong>Phone:</strong> {$phone}</p>
+            <p><strong>Message:</strong><br>{$message}</p>
+        ";
 
         $mail->send();
-        echo '✅ Message sent successfully!';
+        echo "success";
+
     } catch (Exception $e) {
-        echo '❌ Mailer Error: ' . $mail->ErrorInfo;
+        error_log("❌ Mailer Error: " . $mail->ErrorInfo . ' | ' . $e->getMessage());
+        echo "error";
     }
+
+} else {
+    http_response_code(405);
+    echo "error";
 }
-?>
