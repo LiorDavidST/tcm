@@ -8,7 +8,7 @@
 
     // מנקה הודעות ישנות
     messageElement.textContent = '';
-    messageElement.style.color = '';
+    messageElement.classList.remove('success', 'error');
 
     fetch('send_mail.php', {
       method: 'POST',
@@ -17,40 +17,41 @@
     .then(response => response.text())
     .then(result => {
       if (result.trim() === 'success') {
-        messageElement.style.color = 'green';
+        messageElement.classList.remove('error');
+        messageElement.classList.add('success');
         messageElement.textContent = '✅ Thank you! Your message has been sent successfully.';
 
         // מנקה את הטופס
         form.reset();
 
-        // מנע שימוש בטופס (נעל אותו)
-        Array.from(form.elements).forEach(function(element) {
-          element.disabled = true;
-        });
-
-        // מעלים את הודעת ההצלחה אחרי 5 שניות
+        // מעלים את ההודעה אחרי 5 שניות
         setTimeout(() => {
           messageElement.textContent = '';
+          messageElement.classList.remove('success');
         }, 5000);
 
       } else {
-        messageElement.style.color = 'red';
+        messageElement.classList.remove('success');
+        messageElement.classList.add('error');
         messageElement.textContent = '❌ Sorry, there was an error sending your message. Please try again.';
 
-        // מעלים את הודעת השגיאה אחרי 5 שניות
+        // לא מנקה את הטופס – מאפשר שליחה חוזרת
         setTimeout(() => {
           messageElement.textContent = '';
-        }, 5000);
+          messageElement.classList.remove('error');
+        }, 7000);
       }
     })
     .catch(error => {
-      messageElement.style.color = 'red';
+      messageElement.classList.remove('success');
+      messageElement.classList.add('error');
       messageElement.textContent = '❌ Sorry, something went wrong. Please try again later.';
 
-      // מעלים את הודעת השגיאה אחרי 5 שניות
+      // לא מנקה את הטופס – מאפשר שליחה חוזרת
       setTimeout(() => {
         messageElement.textContent = '';
-      }, 5000);
+        messageElement.classList.remove('error');
+      }, 7000);
     });
   });
 </script>
