@@ -1,0 +1,8 @@
+# Ignore environment files
+.env
+
+# Ignore other system files (לא חובה אבל מקובל)
+*.log
+node_modules/
+vendor/
+.DS_Store
