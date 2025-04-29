@@ -15,6 +15,9 @@ $smtpPort   = $_ENV['SMTP_PORT']   ?? 465;
 $smtpSecure = $_ENV['SMTP_SECURE'] ?? 'ssl';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // --- דיבוג: שמירת נתונים שהתקבלו ב-POST ---
+    file_put_contents('debug_log.txt', print_r($_POST, true));
+
     $name    = $_POST["name"]    ?? '';
     $email   = $_POST["email"]   ?? '';
     $phone   = $_POST["phone"]   ?? '';
@@ -32,21 +35,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mail->SMTPSecure = $smtpSecure;
         $mail->Port       = $smtpPort;
 
-        // בדיקה ודיבוג על FROM
+        // בדיקת כתובת FROM + לוג
         error_log("📬 SMTP_USER from env: " . $smtpUser);
         if (!$smtpUser || !filter_var($smtpUser, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Invalid FROM address: '$smtpUser'");
         }
 
-        // הגדרת השולח
         $mail->setFrom($smtpUser, 'Website Contact Form');
         $mail->addAddress($smtpUser);
         if ($email) {
             $mail->addReplyTo($email, $name);
         }
 
-        // תוכן המייל
+        // הגדרות תוכן + תמיכה בעברית
         $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
         $mail->Subject = 'New Contact Form Submission';
         $mail->Body    = "
             <h3>New message from your website</h3>
