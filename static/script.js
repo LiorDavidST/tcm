@@ -1,4 +1,3 @@
-<script>
   document.getElementById('contact-form').addEventListener('submit', function(event) {
     event.preventDefault(); // מונע רענון דף
 
@@ -54,4 +53,3 @@
       }, 7000);
     });
   });
-</script>
