@@ -1,14 +1,14 @@
-# 🐍 שלב 1: בחר Image בסיס עם Python
+# 🐍 דימוי בסיס
 FROM python:3.11-slim
 
-# 📁 שלב 2: הגדרת תיקיית עבודה
+# תיקיית עבודה
 WORKDIR /app
 
-# 📥 שלב 3: העתקת כל קבצי הפרויקט
+# העתקת קבצים
 COPY . .
 
-# 🧪 שלב 4: התקנת הספריות מ־requirements.txt
+# התקנת ספריות
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 🚀 שלב 5: הפעלת Flask ישירות
-CMD ["python", "app.py"]
+# הפעלת Gunicorn (לא Flask ישירות)
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]

@@ -28,4 +28,6 @@ def run_code():
 
 # ✅ חשוב! הפעלת האפליקציה באופן ש-Render יוכל לזהות
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # רק לשימוש מקומי – לא רץ בדוקר
+    app.run(host='0.0.0.0', port=5000)
+
