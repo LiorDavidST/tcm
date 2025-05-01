@@ -10,6 +10,9 @@
 
   <!-- קובץ CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style_lessons.css') }}">
+
+  <!-- Pyodide -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
 </head>
 <body class="dark-mode">
 
@@ -25,16 +28,13 @@
   <!-- 🔵 עורך קוד -->
   <div class="editor">
     <h2>Code Editor</h2>
-
-    <!-- מונה התקדמות -->
     <div id="progress" style="margin-bottom: 10px; font-weight: bold;">
       Topic 1 of 5
     </div>
 
-    <!-- תוכן הנושא -->
     <div id="lesson-content">
       <h3 id="topic-title">Topic Title</h3>
-      
+
       <p><strong>Theory:</strong> <span id="topic-theory"></span></p>
 
       <div id="example-section">
@@ -66,6 +66,26 @@
 
   <!-- קובץ JS -->
   <script src="{{ url_for('static', filename='script_lessons.js') }}"></script>
+
+  <!-- אתחול Pyodide -->
+  <script>
+    let pyodide;
+    async function startPyodide() {
+      pyodide = await loadPyodide();
+      console.log("✅ Pyodide is ready.");
+    }
+    startPyodide();
+
+    async function runCode() {
+      const code = document.getElementById("code").value;
+      try {
+        const result = await pyodide.runPythonAsync(code);
+        document.getElementById("output").textContent = result ?? "✓ Code executed";
+      } catch (err) {
+        document.getElementById("output").textContent = "❌ Error:\n" + err;
+      }
+    }
+  </script>
 
   <!-- מצב תאורה וכפתור פתרון -->
   <script>

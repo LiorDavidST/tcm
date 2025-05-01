@@ -2,11 +2,19 @@ let lessonsData = {};
 let currentLessonIndex = 0;
 let currentTopicIndex = 0;
 let currentSubtopicIndex = null;
+let pyodide = null;
+
+// אתחול Pyodide
+async function startPyodide() {
+  pyodide = await loadPyodide();
+  console.log("✅ Pyodide loaded.");
+}
 
 // טעינה ראשונית
 async function loadLessons() {
+  await startPyodide();  // ← טען Pyodide קודם
   try {
-const response = await fetch('/static/lessons_python.json');
+    const response = await fetch('/static/lessons_python.json');
     lessonsData = await response.json();
     renderLessonList();
     showCurrentTopic();
@@ -66,7 +74,6 @@ function showCurrentTopic() {
   highlightActiveTopic();
 }
 
-// פונקציה להצגת/הסתרת פתרון
 function toggleSolution() {
   const box = document.getElementById('solution-box');
   const btn = document.getElementById('solution-button');
@@ -79,7 +86,6 @@ function toggleSolution() {
   }
 }
 
-// יצירת תפריט שיעורים ונושאים (כולל תתי נושאים ל-Final Practice)
 function renderLessonList() {
   const lessonList = document.getElementById('lesson-list');
   lessonList.innerHTML = '';
@@ -97,7 +103,6 @@ function renderLessonList() {
     topicList.style.marginTop = '5px';
     topicList.style.marginLeft = '15px';
 
-    // Toggle accordion
     lessonTitle.onclick = () => {
       const isOpen = lessonItem.classList.contains('open');
       document.querySelectorAll('#lesson-list li').forEach(li => li.classList.remove('open'));
@@ -121,13 +126,12 @@ function renderLessonList() {
 
       topicList.appendChild(topicItem);
 
-      // 🔵 אם זה Final Practice – הוסף גם את תתי הנושאים
       if (topic.title === "Final Practice – Review All Topics" && topic.subtopics) {
         topic.subtopics.forEach((subtopic, subIdx) => {
           const subtopicItem = document.createElement('li');
           subtopicItem.textContent = subtopic.title;
           subtopicItem.classList.add('topic-item');
-          subtopicItem.style.marginLeft = '20px'; // הזחה ברורה
+          subtopicItem.style.marginLeft = '20px';
           subtopicItem.onclick = () => {
             currentLessonIndex = lessonIdx;
             currentTopicIndex = topicIdx;
@@ -145,7 +149,6 @@ function renderLessonList() {
   });
 }
 
-// הדגשת נושא פעיל
 function highlightActiveTopic() {
   const allTopics = document.querySelectorAll('.topic-item');
   allTopics.forEach(item => {
@@ -153,7 +156,6 @@ function highlightActiveTopic() {
   });
 }
 
-// ניווט לנושא הבא
 function nextTopic() {
   const topics = lessonsData.lessons[currentLessonIndex].topics;
   const topic = topics[currentTopicIndex];
@@ -168,7 +170,6 @@ function nextTopic() {
   }
 }
 
-// ניווט לנושא הקודם
 function prevTopic() {
   const topic = lessonsData.lessons[currentLessonIndex].topics[currentTopicIndex];
 
@@ -182,23 +183,16 @@ function prevTopic() {
   }
 }
 
-// שליחת קוד להרצה
+// 🟢 הרצת קוד עם Pyodide
 async function runCode() {
-  const code = document.getElementById('code').value;
+  const code = document.getElementById("code").value;
+  const outputElement = document.getElementById("output");
 
   try {
-    const response = await fetch('/run', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ code })
-    });
-
-    const result = await response.json();
-    document.getElementById('output').textContent = result.output;
-  } catch (error) {
-    document.getElementById('output').textContent = 'Error: ' + error;
+    const result = await pyodide.runPythonAsync(code);
+    outputElement.textContent = result ?? "✓ Code executed.";
+  } catch (err) {
+    outputElement.textContent = "❌ Error:\n" + err;
   }
 }
 
