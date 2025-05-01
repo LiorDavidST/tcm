@@ -26,5 +26,6 @@ def run_code():
     output = run_python_code(code)
     return jsonify({'output': output})
 
+# ✅ חשוב! הפעלת האפליקציה באופן ש-Render יוכל לזהות
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
