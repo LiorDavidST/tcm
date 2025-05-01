@@ -1,14 +1,14 @@
-# משתמש ב-image של PHP עם Apache
-FROM php:8.2-apache
+# שלב 1: Image בסיס של Python
+FROM python:3.11-slim
 
-# מעתיק את כל הקבצים לתוך תקיית ברירת המחדל בשרת (htdocs)
-COPY . /var/www/html/
+# שלב 2: יצירת תיקייה לאפליקציה
+WORKDIR /app
 
-# מאפשר שימוש בשליחת מיילים (אם צריך הגדרות נוספות, תוסיף כאן בעתיד)
-RUN docker-php-ext-install mysqli
+# שלב 3: העתקת כל הקבצים
+COPY . .
 
-# נותן הרשאות לקבצים
-RUN chown -R www-data:www-data /var/www/html
+# שלב 4: התקנת התלויות
+RUN pip install --no-cache-dir -r requirements.txt
 
-# פותח את הפורט שבו אפאצ'י יאזין
-EXPOSE 80
+# שלב 5: הפעלת האפליקציה עם Flask
+CMD ["python", "app.py"]
