@@ -187,7 +187,7 @@ async function runCode() {
   const code = document.getElementById('code').value;
 
   try {
-    const response = await fetch('http://127.0.0.1:5000/run', {
+    const response = await fetch('/run', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
