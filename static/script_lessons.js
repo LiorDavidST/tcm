@@ -189,8 +189,16 @@ async function runCode() {
   const outputElement = document.getElementById("output");
 
   try {
-    const result = await pyodide.runPythonAsync(code);
-    outputElement.textContent = result ?? "✓ Code executed.";
+    // הכנה ללכידת פלט
+    pyodide.setStdout({
+      batched: (text) => {
+        outputElement.textContent = text;
+      }
+    });
+
+    // הרצת הקוד
+    await pyodide.runPythonAsync(code);
+
   } catch (err) {
     outputElement.textContent = "❌ Error:\n" + err;
   }
