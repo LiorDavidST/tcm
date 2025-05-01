@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TCM Learn Python</title>
+
+  <!-- גופן מודרני -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+
+  <!-- קובץ CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style_lessons.css') }}">
+
+  <!-- Pyodide -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+</head>
+<body class="dark-mode">
+
+  <!-- 🔵 סרגל צד -->
+  <div class="sidebar">
+    <h2>Lessons</h2>
+    <ul id="lesson-list"></ul>
+    <div style="margin-top: 20px;">
+      <button onclick="toggleTheme()">Toggle Theme</button>
+    </div>
+  </div>
+
+  <!-- 🔵 עורך קוד -->
+  <div class="editor">
+    <h2>Code Editor</h2>
+    <div id="progress" style="margin-bottom: 10px; font-weight: bold;">
+      Topic 1 of 5
+    </div>
+
+    <div id="lesson-content">
+      <h3 id="topic-title">Topic Title</h3>
+
+      <p><strong>Theory:</strong> <span id="topic-theory"></span></p>
+
+      <div id="example-section">
+        <p><strong>Example:</strong></p>
+        <pre id="topic-example"></pre>
+      </div>
+
+      <p><strong>Exercise:</strong> <div id="topic-exercise"></div></p>
+
+      <div id="solution-section" style="margin-top: 10px;">
+        <button id="solution-button" onclick="toggleSolution()" style="display: none;">Show Solution</button>
+        <pre id="solution-box" style="display: none; margin-top: 10px;"></pre>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="runCode()">Run</button>
+      <button onclick="prevTopic()">Previous</button>
+      <button onclick="nextTopic()">Next</button>
+    </div>
+
+    <textarea id="code"></textarea>
+  </div>
+
+  <div class="output">
+    <h2>Output</h2>
+    <pre id="output"></pre>
+  </div>
+
+  <!-- קובץ JS -->
+  <script src="{{ url_for('static', filename='script_lessons.js') }}"></script>
+
+  <!-- אתחול Pyodide -->
+  <script>
+    let pyodide;
+    async function startPyodide() {
+      pyodide = await loadPyodide();
+      console.log("✅ Pyodide is ready.");
+    }
+    startPyodide();
+
+    async function runCode() {
+      const code = document.getElementById("code").value;
+      try {
+        const result = await pyodide.runPythonAsync(code);
+        document.getElementById("output").textContent = result ?? "✓ Code executed";
+      } catch (err) {
+        document.getElementById("output").textContent = "❌ Error:\n" + err;
+      }
+    }
+  </script>
+
+  <!-- מצב תאורה וכפתור פתרון -->
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      body.classList.toggle("dark-mode");
+      body.classList.toggle("light-mode");
+    }
+
+    function toggleSolution() {
+      const box = document.getElementById('solution-box');
+      const btn = document.getElementById('solution-button');
+      if (box.style.display === 'none') {
+        box.style.display = 'block';
+        btn.textContent = 'Hide Solution';
+      } else {
+        box.style.display = 'none';
+        btn.textContent = 'Show Solution';
+      }
+    }
+  </script>
+
+</body>
+</html>
