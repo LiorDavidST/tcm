@@ -9,7 +9,7 @@
     messageElement.textContent = '';
     messageElement.classList.remove('success', 'error');
 
-    fetch('send_mail.php', {
+    fetch('send_mail', {
       method: 'POST',
       body: formData
     })
