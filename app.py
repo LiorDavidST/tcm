@@ -1,10 +1,27 @@
 from flask import Flask, request, jsonify, render_template
+app = Flask(__name__, static_folder='static', template_folder='templates')
 from runner import run_python_code
 import smtplib
 from email.message import EmailMessage
 import os
+from ask_model import ask_python_question  # הוסף בתחילת הקובץ
 
-app = Flask(__name__, static_folder='static', template_folder='templates')
+# 🔹 API לשיחה עם מודל שפה
+@app.route("/ask", methods=["POST"])
+def ask():
+    try:
+        data = request.get_json()
+        question = data.get("question", "").strip()
+
+        if not question:
+            return jsonify({"error": "Question is empty"}), 400
+
+        current_topic = data.get("current_lesson_topic", None)
+        answer = ask_python_question(question, current_lesson_topic=current_topic)
+        return jsonify({"answer": answer})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # 🔹 דף הבית – index.html
 @app.route('/')

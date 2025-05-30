@@ -5,108 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TCM Learn Python</title>
 
-  <!-- גופן מודרני -->
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
-
-  <!-- קובץ CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style_lessons.css') }}">
-
-  <!-- Pyodide -->
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js"></script>
 </head>
 <body class="dark-mode">
 
-  <!-- 🔵 סרגל צד -->
+  <!-- 🔵 Lessons Panel -->
   <div class="sidebar">
     <h2>Lessons</h2>
     <ul id="lesson-list"></ul>
-    <div style="margin-top: 20px;">
-      <button onclick="toggleTheme()">Toggle Theme</button>
-    </div>
   </div>
 
-  <!-- 🔵 עורך קוד -->
+  <!-- 🔵 Code Editor Area -->
   <div class="editor">
-    <h2>Code Editor</h2>
-    <div id="progress" style="margin-bottom: 10px; font-weight: bold;">
-      Topic 1 of 5
-    </div>
 
-    <div id="lesson-content">
+    <!-- ⬆️ הכותרת בראש -->
+<!-- בתוך <div class="editor"> -->
+<h2>Code Editor</h2>
+<textarea id="code" placeholder="Write your Python code here..."></textarea>
+
+
+<!-- 🔘 כפתורי פעולה -->
+<div class="button-row">
+  <button onclick="runCode()">Run</button>
+  <button onclick="prevTopic()">Previous</button>
+  <button onclick="nextTopic()">Next</button>
+  <button onclick="toggleNeonColor()">Neon</button>
+  <button onclick="toggleTheme()">Mode</button>
+  <button onclick="copyCode()" id="copy-btn">
+    Copy
+    <span id="copy-confirm" style="
+      display: none;
+      margin-left: 5px;
+      color: lime;
+      font-size: 16px;
+    ">✔</span>
+</div>
+
+    <!-- ⬇️ טקסט תרגיל -->
+         <div id="lesson-content">
       <h3 id="topic-title">Topic Title</h3>
-
       <p><strong>Theory:</strong> <span id="topic-theory"></span></p>
 
+      <p id="topic-exercise"></p>
+
       <div id="example-section">
-        <p><strong>Example:</strong></p>
-        <pre id="topic-example"></pre>
+
+        <div id="topic-example"></div>
       </div>
 
-      <p><strong>Exercise:</strong> <div id="topic-exercise"></div></p>
+    <p><span id="topic-exercise"></span></p>
 
       <div id="solution-section" style="margin-top: 10px;">
         <button id="solution-button" onclick="toggleSolution()" style="display: none;">Show Solution</button>
         <pre id="solution-box" style="display: none; margin-top: 10px;"></pre>
       </div>
     </div>
-
-    <div class="button-row">
-      <button onclick="runCode()">Run</button>
-      <button onclick="prevTopic()">Previous</button>
-      <button onclick="nextTopic()">Next</button>
-    </div>
-
-    <textarea id="code">print("Hello, world!")</textarea>
   </div>
 
-  <div class="output">
+<!-- 🔵 Output + TCM Assistance -->
+<div class="output">
+  <div class="output-box">
     <h2>Output</h2>
-    <pre id="output"></pre>
+    <pre id="output" style="white-space: pre-wrap;"></pre>
   </div>
 
-  <!-- קובץ JS -->
-  <script src="{{ url_for('static', filename='script_lessons.js') }}"></script>
 
-  <!-- אתחול Pyodide -->
-  <script>
-    let pyodide;
-    async function startPyodide() {
-      pyodide = await loadPyodide();
-      console.log("✅ Pyodide is ready.");
-    }
-    startPyodide();
+  <div class="tcm-box">
+    <h2>TCM Assistance</h2>
+    
+    <!-- תיבת שיחה - תציג את כל השאלות והתשובות -->
+    <pre id="tcm-output">
+I'm ready to help you.
+    </pre>
 
-    async function runCode() {
-      const code = document.getElementById("code").value;
-      try {
-        const result = await pyodide.runPythonAsync(code);
-        document.getElementById("output").textContent = result ?? "✓ Code executed";
-      } catch (err) {
-        document.getElementById("output").textContent = "❌ Error:\n" + err;
-      }
-    }
-  </script>
+    <textarea
+      id="tcm-input"
+      placeholder="Ask a Python question..."
+      onkeydown="if(event.key === 'Enter') { askTCMAssistant(); event.preventDefault(); }"
+></textarea>
+    
+  </div>
+</div>
 
-  <!-- מצב תאורה וכפתור פתרון -->
-  <script>
-    function toggleTheme() {
-      const body = document.body;
-      body.classList.toggle("dark-mode");
-      body.classList.toggle("light-mode");
-    }
 
-    function toggleSolution() {
-      const box = document.getElementById('solution-box');
-      const btn = document.getElementById('solution-button');
-      if (box.style.display === 'none') {
-        box.style.display = 'block';
-        btn.textContent = 'Hide Solution';
-      } else {
-        box.style.display = 'none';
-        btn.textContent = 'Show Solution';
-      }
-    }
-  </script>
+
+<script src="{{ url_for('static', filename='script_lessons.js') }}"></script>
+
+<script>
+  window.onload = loadLessons;
+</script>
 
 </body>
 </html>
