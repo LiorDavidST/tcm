@@ -33,7 +33,7 @@ async function loadLessons() {
       res1, res2, res3, res4, res5,
       res6, res7, res8, res9, res10
     ] = await Promise.all([
-      fetch('/static/lessons1_python.json'),
+      fetch('/static/Lessons1_python.json'),
       fetch('/static/Lessons2_python.json'),
       fetch('/static/Lessons3_python.json'),
       fetch('/static/Lessons4_python.json'),
