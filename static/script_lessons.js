@@ -30,19 +30,25 @@ async function loadLessons() {
 
   await startPyodide();
   try {
-    const [res1, res2, res3] = await Promise.all([
+    const [res1, res2, res3, res4, res5] = await Promise.all([
       fetch('/static/lessons_python.json'),
       fetch('/static/Lessons2_python.json'),
-      fetch('/static/Lessons3_python.json')
+      fetch('/static/Lessons3_python.json'),
+      fetch('/static/Lessons4_python.json'),
+      fetch('/static/Lessons5_python.json')
     ]);
     const data1 = await res1.json();
     const data2 = await res2.json();
     const data3 = await res3.json();
+    const data4 = await res4.json();
+    const data5 = await res5.json();
 
     lessonsData.lessons = [
       ...(data1.lessons || []),
       ...(data2.lessons || []),
-      ...(data3.lessons || [])
+      ...(data3.lessons || []),
+      ...(data4.lessons || []),
+      ...(data5.lessons || []),
     ];
 
     renderLessonList();

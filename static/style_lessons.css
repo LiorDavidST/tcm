@@ -662,13 +662,15 @@ body.dark-mode .button-row button {
   color: #ffffff;
 }
 
+/* 🔘 כפתורי שורת הפעולה - מצב בהיר */
 body.light-mode .button-row button {
-  background-color: #dcdfe3;
+  background-color: #e2e5e9; /* אפור קפוא בהיר */
   color: #222;
 }
 
 body.light-mode .button-row button:hover {
-  background-color: #d0d0d0;
+  background-color: #d0d4d8;
+  transform: translateY(-2px);
 }
 
 body.dark-mode .button-row button:hover {
@@ -695,8 +697,20 @@ body.dark-mode .button-row button:hover {
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
+/* 🧩 כפתור SHOW SOLUTION - מצב כהה */
+body.dark-mode #solution-button {
+  background-color: #3a3f44;
+  color: #ffffff;
+}
+
+body.dark-mode #solution-button:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* 🧩 כפתור SHOW SOLUTION - מצב בהיר */
 body.light-mode #solution-button {
-  background-color: #dcdfe3;
+  background-color: #e2e5e9;
   color: #222;
 }
 
@@ -704,3 +718,47 @@ body.light-mode #solution-button {
   background-color: #5a6268;
   transform: translateY(-2px);
 }
+
+body.light-mode #solution-button:hover {
+  background-color: #d0d4d8;
+  transform: translateY(-2px);
+}
+
+/* 🔘 כל הכפתורים - מצב כהה */
+body.dark-mode button,
+body.dark-mode .button-row button,
+body.dark-mode #solution-button {
+  background-color: #3a3f44 !important;
+  color: #ffffff !important;
+  border: none !important;
+  background-image: none !important;
+}
+
+/* 🔘 כל הכפתורים - מצב כהה - ריחוף */
+body.dark-mode button:hover,
+body.dark-mode .button-row button:hover,
+body.dark-mode #solution-button:hover {
+  background-color: #5a6268 !important;
+  transform: translateY(-2px);
+}
+
+
+/* 🔘 כל הכפתורים - מצב בהיר */
+body.light-mode button,
+body.light-mode .button-row button,
+body.light-mode #solution-button {
+  background-color: #e2e5e9 !important;
+  color: #222 !important;
+  border: none !important;
+  background-image: none !important;
+}
+
+/* 🔘 כל הכפתורים - מצב בהיר - ריחוף */
+body.light-mode button:hover,
+body.light-mode .button-row button:hover,
+body.light-mode #solution-button:hover {
+  background-color: #d0d4d8 !important;
+  transform: translateY(-2px);
+}
+
+
