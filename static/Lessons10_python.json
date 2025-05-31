@@ -1,0 +1,29 @@
+{
+  "lessons": [
+    {
+      "title": "Lesson 10: Final Project – Build a Quiz Game",
+      "topics": [
+        {
+          "title": "Quiz Project Overview",
+          "theory": "In this final project, you'll build a simple quiz game using everything you've learned: lists, dictionaries, loops, conditions, functions, and input.\n\nThe game will ask questions, check answers, and calculate the score.",
+          "exercise": "1. Create a dictionary with at least 3 questions and answers.\n2. Write a function to ask each question and check the user's answer.\n3. Track the score.\n4. Print the total correct answers at the end.",
+          "starter_code": "questions = {\n    \"What is the capital of France?\": \"Paris\",\n    \"2 + 2 = ?\": \"4\",\n    \"What color is the sky?\": \"blue\"\n}\n\nscore = 0\n\ndef ask_question(q, a):\n    answer = input(q + \" \")\n    return answer.lower() == a.lower()\n\nfor q, a in questions.items():\n    if ask_question(q, a):\n        print(\"Correct!\")\n        score += 1\n    else:\n        print(\"Wrong.\")\n\nprint(f\"You got {score} out of {len(questions)} correct.\")"
+        }
+      ],
+      "practice": [
+        {
+          "title": "Practice: Add More Questions",
+          "exercise": "1. Add two more questions to the quiz dictionary.\n2. Make sure the game handles all questions properly.",
+          "theory": "Expanding your quiz tests flexibility and understanding of loops and data structures.",
+          "solution": "questions = {\n    \"What is the capital of France?\": \"Paris\",\n    \"2 + 2 = ?\": \"4\",\n    \"What color is the sky?\": \"blue\",\n    \"What is 10 / 2?\": \"5\",\n    \"What day comes after Monday?\": \"Tuesday\"\n}\n\nscore = 0\n\ndef ask_question(q, a):\n    answer = input(q + \" \")\n    return answer.lower() == a.lower()\n\nfor q, a in questions.items():\n    if ask_question(q, a):\n        print(\"Correct!\")\n        score += 1\n    else:\n        print(\"Wrong.\")\n\nprint(f\"You got {score} out of {len(questions)} correct.\")"
+        },
+        {
+          "title": "Practice: Percentage Score",
+          "exercise": "1. After the quiz, calculate and print the score as a percentage.",
+          "theory": "Use arithmetic to convert correct answers to a percent.",
+          "solution": "percent = (score / len(questions)) * 100\nprint(f\"Your score: {percent:.1f}%\")"
+        }
+      ]
+    }
+  ]
+}

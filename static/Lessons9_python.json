@@ -1,0 +1,119 @@
+{
+  "lessons": [
+    {
+      "title": "Lesson 9: Functions – Arguments, Scope, Lambda",
+      "topics": [
+        {
+          "title": "*args",
+          "theory": "`*args` allows a function to accept any number of positional arguments.\n\nExample:\ndef add(*numbers): return sum(numbers)",
+          "exercise": "1. Create a function that sums any number of arguments.\n2. Call it with 3 numbers.",
+          "starter_code": "def total(*nums):\n    return sum(nums)\n\nprint(total(4, 6, 10))"
+        },
+        {
+          "title": "**kwargs",
+          "theory": "`**kwargs` allows passing named arguments as a dictionary.\n\nExample:\ndef print_info(**data): print(data[\"name\"])",
+          "exercise": "1. Create a function that prints key-value pairs from kwargs.",
+          "starter_code": "def show_details(**info):\n    for key, value in info.items():\n        print(f\"{key}: {value}\")\n\nshow_details(name=\"Liam\", age=25)"
+        },
+        {
+          "title": "Default Arguments",
+          "theory": "Functions can define default values for parameters, which are used if no argument is passed.",
+          "exercise": "1. Create a function with a default argument for greeting.\n2. Call it once with and once without a parameter.",
+          "starter_code": "def greet(name=\"Guest\"):\n    print(f\"Hello, {name}!\")\n\ngreet(\"Emma\")\ngreet()"
+        },
+        {
+          "title": "Lambda Functions",
+          "theory": "Lambda functions are small anonymous functions used for short tasks.\n\nExample:\nsquare = lambda x: x ** 2",
+          "exercise": "1. Write a lambda function that adds 5 to a number.\n2. Print the result for 10.",
+          "starter_code": "add_five = lambda x: x + 5\nprint(add_five(10))"
+        },
+        {
+          "title": "Variable Scope",
+          "theory": "Scope determines where variables are accessible. Local variables exist inside functions, while global ones are defined outside.",
+          "exercise": "1. Create a function that modifies a global variable.\n2. Print before and after calling the function.",
+          "starter_code": "count = 0\ndef increase():\n    global count\n    count += 1\n\nprint(count)\nincrease()\nprint(count)"
+        },
+        {
+          "title": "Unpacking Values",
+          "theory": "You can unpack lists or tuples when calling functions using `*` or `**`.\n\nUseful for passing multiple arguments stored in a data structure.",
+          "exercise": "1. Create a function that takes three values.\n2. Call it with a tuple using unpacking.",
+          "starter_code": "def show(x, y, z):\n    print(x, y, z)\ndata = (1, 2, 3)\nshow(*data)"
+        }
+      ],
+      "practice": [
+        {
+          "title": "Practice 1: Sum All Values",
+          "exercise": "1. Create a function that takes *args and returns the average.",
+          "theory": "Use *args to handle variable-length input.",
+          "solution": "def average(*nums):\n    return sum(nums) / len(nums)\n\nprint(average(10, 20, 30))"
+        },
+        {
+          "title": "Practice 2: Multiply All Values",
+          "exercise": "1. Use *args to multiply all values passed.",
+          "theory": "Loop over *args to compute the product.",
+          "solution": "def multiply(*nums):\n    result = 1\n    for n in nums:\n        result *= n\n    return result\n\nprint(multiply(2, 3, 4))"
+        },
+        {
+          "title": "Practice 3: Named Info Printer",
+          "exercise": "1. Write a function that prints formatted personal info from kwargs.",
+          "theory": "Use a loop over `**kwargs` items.",
+          "solution": "def person_info(**info):\n    for k, v in info.items():\n        print(f\"{k.capitalize()}: {v}\")\n\nperson_info(name=\"Ella\", age=32)"
+        },
+        {
+          "title": "Practice 4: Flexible Formatter",
+          "exercise": "1. Create a function that accepts name and message via kwargs.",
+          "theory": "Access named keyword arguments using `kwargs['key']`.",
+          "solution": "def custom_greet(**kwargs):\n    print(f\"{kwargs['name']}: {kwargs['message']}\")\n\ncustom_greet(name=\"Tom\", message=\"Welcome!\")"
+        },
+        {
+          "title": "Practice 5: Greet With Default",
+          "exercise": "1. Define a function greet(name=\"friend\").\n2. Call it with and without arguments.",
+          "theory": "Default arguments are used if not overridden.",
+          "solution": "def greet(name=\"friend\"):\n    print(f\"Hi {name}!\")\n\ngreet(\"Sam\")\ngreet()"
+        },
+        {
+          "title": "Practice 6: Discount Calculator",
+          "exercise": "1. Write a function with a default discount rate.\n2. Calculate discounted price.",
+          "theory": "Default values help avoid repetitive input.",
+          "solution": "def discount(price, rate=0.1):\n    return price * (1 - rate)\n\nprint(discount(100))"
+        },
+        {
+          "title": "Practice 7: Lambda Multiply",
+          "exercise": "1. Create a lambda function to multiply two values.\n2. Use it to multiply 6 and 7.",
+          "theory": "Lambda is ideal for simple inline functions.",
+          "solution": "multiply = lambda a, b: a * b\nprint(multiply(6, 7))"
+        },
+        {
+          "title": "Practice 8: Lambda with Filter",
+          "exercise": "1. Use lambda and filter to keep even numbers.",
+          "theory": "filter(function, iterable) uses boolean return.",
+          "solution": "nums = [1, 2, 3, 4, 5, 6]\nevens = list(filter(lambda x: x % 2 == 0, nums))\nprint(evens)"
+        },
+        {
+          "title": "Practice 9: Scope Test",
+          "exercise": "1. Show how global and local variables interact.",
+          "theory": "Using `global` inside a function modifies the outside variable.",
+          "solution": "x = 5\ndef change():\n    global x\n    x = 10\n\nprint(x)\nchange()\nprint(x)"
+        },
+        {
+          "title": "Practice 10: No Global Access",
+          "exercise": "1. Try to change a global variable without declaring it.\n2. See the error.",
+          "theory": "Python requires `global` keyword for external access.",
+          "solution": "y = 3\ndef wrong():\n    y = 5\n\nwrong()\nprint(y)"
+        },
+        {
+          "title": "Practice 11: Unpack List to Function",
+          "exercise": "1. Create a list of three numbers.\n2. Call a function with unpacking (*list).",
+          "theory": "Use * to spread values into arguments.",
+          "solution": "def show(a, b, c):\n    print(a, b, c)\ndata = [3, 6, 9]\nshow(*data)"
+        },
+        {
+          "title": "Practice 12: Keyword Unpacking",
+          "exercise": "1. Define a function with two named args.\n2. Call using **dict.",
+          "theory": "Use ** to unpack dictionaries into parameters.",
+          "solution": "def info(name, city):\n    print(f\"{name} lives in {city}.\")\ndata = {\"name\": \"Anna\", \"city\": \"Paris\"}\ninfo(**data)"
+        }
+      ]
+    }
+  ]
+}

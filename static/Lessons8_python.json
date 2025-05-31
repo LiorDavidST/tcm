@@ -1,0 +1,101 @@
+{
+  "lessons": [
+    {
+      "title": "Lesson 8: List Comprehension, Logical Expressions and Enhanced Loops",
+      "topics": [
+        {
+          "title": "List Comprehensions",
+          "theory": "List comprehensions provide a concise way to create lists using loops and conditions in one line.\n\nExample:\nsquares = [x**2 for x in range(5)]",
+          "exercise": "1. Create a list of even numbers from 1 to 10 using a list comprehension.",
+          "starter_code": "evens = [x for x in range(1, 11) if x % 2 == 0]\nprint(evens)"
+        },
+        {
+          "title": "Logical Expressions",
+          "theory": "Logical expressions combine conditions using `and`, `or`, and `not`.\n\nYou can nest conditions for complex decision making.",
+          "exercise": "1. Ask for two numbers.\n2. Print if both are even or if at least one is odd.",
+          "starter_code": "a = int(input(\"Enter first number: \"))\nb = int(input(\"Enter second number: \"))\nif a % 2 == 0 and b % 2 == 0:\n    print(\"Both are even\")\nelif a % 2 != 0 or b % 2 != 0:\n    print(\"At least one is odd\")"
+        },
+        {
+          "title": "Loop Enhancements",
+          "theory": "Use `break` to exit a loop early, `continue` to skip an iteration, and `else` with `for` or `while` for code that runs only if the loop completes.",
+          "exercise": "1. Loop through numbers 1–10.\n2. Stop if the number is 7, but skip number 5.\n3. Print a message when the loop ends normally.",
+          "starter_code": "for i in range(1, 11):\n    if i == 5:\n        continue\n    if i == 7:\n        break\n    print(i)\nelse:\n    print(\"Loop finished\")"
+        },
+        {
+          "title": "Nested Loops",
+          "theory": "Nested loops run one loop inside another. Used for working with 2D data structures.",
+          "exercise": "1. Use a nested loop to print a 3x3 grid of stars.",
+          "starter_code": "for row in range(3):\n    for col in range(3):\n        print(\"*\", end=\" \")\n    print()"
+        },
+        {
+          "title": "Boolean Variables",
+          "theory": "Boolean variables hold True or False. Useful for conditions and flags in logic.",
+          "exercise": "1. Create a boolean variable `is_logged_in`.\n2. Print a message depending on its value.",
+          "starter_code": "is_logged_in = True\nif is_logged_in:\n    print(\"Welcome!\")\nelse:\n    print(\"Please log in.\")"
+        },
+        {
+          "title": "Using all() and any()",
+          "theory": "Use `all()` to check if all values are True, and `any()` to check if at least one is True.",
+          "exercise": "1. Check if all grades in a list are above 60.\n2. Check if any grade is above 90.",
+          "starter_code": "grades = [75, 80, 92, 58]\nprint(all(g >= 60 for g in grades))\nprint(any(g > 90 for g in grades))"
+        }
+      ],
+      "practice": [
+        {
+          "title": "Practice 1: Squares List",
+          "exercise": "1. Use list comprehension to generate a list of squares from 1 to 5.",
+          "theory": "Use [x**2 for x in range()] to generate square numbers.",
+          "solution": "squares = [x**2 for x in range(1, 6)]\nprint(squares)"
+        },
+        {
+          "title": "Practice 2: Filter Odd Numbers",
+          "exercise": "1. Create a list of odd numbers between 10 and 20.",
+          "theory": "Use a condition inside the list comprehension.",
+          "solution": "odds = [x for x in range(10, 21) if x % 2 != 0]\nprint(odds)"
+        },
+        {
+          "title": "Practice 3: Nested Conditions",
+          "exercise": "1. Ask the user for their age.\n2. Print if they are a teenager (13–19) or not.",
+          "theory": "Use logical expressions with `and` to check ranges.",
+          "solution": "age = int(input(\"Enter your age: \"))\nif 13 <= age <= 19:\n    print(\"Teenager\")\nelse:\n    print(\"Not a teenager\")"
+        },
+        {
+          "title": "Practice 4: Multiple Conditions",
+          "exercise": "1. Input a temperature value.\n2. Check if it's within a 'normal' range or out of bounds.",
+          "theory": "Use `or` and `not` to check range logic.",
+          "solution": "temp = float(input(\"Enter temperature: \"))\nif not (36.5 <= temp <= 37.5):\n    print(\"Out of normal range\")\nelse:\n    print(\"Normal range\")"
+        },
+        {
+          "title": "Practice 5: Break in Loop",
+          "exercise": "1. Print numbers from 1 to 10.\n2. Stop printing when you reach a number divisible by 4.",
+          "theory": "Use `break` to exit a loop early.",
+          "solution": "for i in range(1, 11):\n    if i % 4 == 0:\n        break\n    print(i)"
+        },
+        {
+          "title": "Practice 6: Continue in Loop",
+          "exercise": "1. Loop from 1 to 10.\n2. Skip numbers divisible by 3.",
+          "theory": "Use `continue` to skip specific cases.",
+          "solution": "for i in range(1, 11):\n    if i % 3 == 0:\n        continue\n    print(i)"
+        },
+        {
+          "title": "Practice 7: Print Grid",
+          "exercise": "1. Print a 4x4 grid of `#` using nested loops.",
+          "theory": "Use two loops to control rows and columns.",
+          "solution": "for i in range(4):\n    for j in range(4):\n        print(\"#\", end=\" \")\n    print()"
+        },
+        {
+          "title": "Practice 8: Boolean Flag",
+          "exercise": "1. Create a boolean `is_admin`.\n2. Print different messages based on it.",
+          "theory": "Boolean variables help control logic flow.",
+          "solution": "is_admin = False\nif is_admin:\n    print(\"Access granted\")\nelse:\n    print(\"Access denied\")"
+        },
+        {
+          "title": "Practice 9: Use all() with Conditions",
+          "exercise": "1. Create a list of scores.\n2. Check if all are above 50.",
+          "theory": "`all()` checks if all conditions are True.",
+          "solution": "scores = [52, 60, 73, 91]\nprint(all(s > 50 for s in scores))"
+        }
+      ]
+    }
+  ]
+}
