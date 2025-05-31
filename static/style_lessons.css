@@ -87,7 +87,7 @@ body.light-mode #output {
   overflow-x: hidden;
   border-right: 2px solid #00ffff;
   scrollbar-gutter: stable both-edges;
-  max-height: 100vh
+  max-height: 100vh;
 }
 
 .editor {
@@ -137,7 +137,7 @@ body.light-mode #output {
 
 /* תיבת Output – שליטה בגובה ומרווח */
 .output-box {
-  height: 220px;            /* ⬅️ גובה קבוע לפי הצורך שלך */
+  height: 414px;            /* ⬅️ גובה קבוע לפי הצורך שלך */
   margin-bottom: 15px;      /* ⬅️ רווח לפני ה-TCM */
   display: flex;
   flex-direction: column;
@@ -213,19 +213,7 @@ body.light-mode #output {
 }
 
 /* שורת הכנסת הפרומפט TCM */
-#tcm-input {
-  height: 100px; /* או כל גובה אחר שתרצה */
-  width: 100%;
-  resize: vertical;
-  font-family: 'Courier New', monospace;
-  font-size: 15px;
-  padding: 12px;
-  border-radius: 6px;
-  box-sizing: border-box;
-  background-color: #2d2d30;
-  color: #ffffff;
-  border: 1px solid #00ffff;
-}
+
 
 
 
@@ -316,7 +304,7 @@ h2 {
 
 /* עורך הקוד הראשי */
 #code {
-  height: 154px; /* שליטה מלאה בגובה */
+  height: 350px; /* שליטה מלאה בגובה */
   width: 100%;
   resize: vertical;
   font-family: 'Courier New', monospace;
@@ -363,16 +351,25 @@ pre {
 
 
 .button-row button {
-  flex: 1 1 auto;               /* ✅ מאפשר לכל כפתור להתכווץ */
-  min-width: 80px;              /* ✅ לא יקרוס לגמרי */
+  flex: 1 1 auto;
+  min-width: 80px;
   padding: 10px 12px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   border-radius: 6px;
   border: none;
+  background-color: #01130a;
+  color: #ffffff;
+  cursor: pointer;
   white-space: nowrap;
   text-align: center;
   box-sizing: border-box;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.button-row button:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
 }
 
 
@@ -614,8 +611,96 @@ body.light-mode .tcm-exchange {
 
 /* 🎨 Textareas – מצב בהיר */
 body.light-mode #code,
-body.light-mode #tcm-input {
+body.light-mode textarea {
   background-color: #ffffff !important;
   color: #222 !important;
   border: 1px solid #ccc !important;
+}
+
+
+
+
+/* --- Enhanced Icon Styling --- */
+
+/* 🎯 עיצוב אייקונים לפי מצב ומעבר עכבר */
+.button-row button i {
+  font-size: 18px;
+  pointer-events: none;
+  transition: transform 0.2s ease, color 0.2s ease, filter 0.2s ease;
+}
+
+/* RUN (ירוק ב-hover) */
+.button-row button:nth-child(1):hover i {
+  color: #00e676;
+}
+
+/* Previous / Next (כחול ב-hover) */
+.button-row button:nth-child(2):hover i,
+.button-row button:nth-child(3):hover i {
+  color: #42a5f5;
+}
+
+/* Neon - צבע תמידי מתוך משתנה CSS */
+.button-row button:nth-child(4) i {
+  color: var(--neon-color, #ffd600);
+  filter: drop-shadow(1px 1px 3px var(--neon-color, #ffd600));
+}
+
+/* Mode – צבע ניטרלי, מתעדכן דרך JS (אייקון מתחלף) */
+.button-row button:nth-child(5) i {
+  color: #ce93d8;
+}
+
+/* Copy – טורקיז */
+.button-row button:nth-child(6):hover i {
+  color: #26c6da;
+}
+
+/* שינוי רקע הכפתורים לפי מצב תאורה */
+body.dark-mode .button-row button {
+  background-color: #3a3f44;
+  color: #ffffff;
+}
+
+body.light-mode .button-row button {
+  background-color: #dcdfe3;
+  color: #222;
+}
+
+body.light-mode .button-row button:hover {
+  background-color: #d0d0d0;
+}
+
+body.dark-mode .button-row button:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+
+/* Style for solution button matching frozen style */
+#solution-button {
+  flex: 1 1 auto;
+  min-width: 80px;
+  padding: 10px 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  background-color: #3a3f44;
+  color: #ffffff;
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: center;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+body.light-mode #solution-button {
+  background-color: #dcdfe3;
+  color: #222;
+}
+
+#solution-button:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
 }

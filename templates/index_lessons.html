@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TCM Learn Python</title>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{{ url_for('static', filename='style_lessons.css') }}">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -29,12 +29,13 @@
 
 <!-- 🔘 כפתורי פעולה -->
 <div class="button-row">
-  <button onclick="runCode()">Run</button>
-  <button onclick="prevTopic()">Previous</button>
-  <button onclick="nextTopic()">Next</button>
-  <button onclick="toggleNeonColor()">Neon</button>
-  <button onclick="toggleTheme()">Mode</button>
-  <button onclick="copyCode()" id="copy-btn">
+  <button onclick="runCode()" title="Run"><i class="fas fa-play"></i></button>
+  <button onclick="prevTopic()" title="Previous"><i class="fas fa-arrow-left"></i></button>
+  <button onclick="nextTopic()" title="Next"><i class="fas fa-arrow-right"></i></button>
+  <button onclick="toggleNeonColor()" title="Toggle Neon"><i class="fas fa-lightbulb"></i></button>
+  <button onclick="toggleTheme()" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+  <button onclick="copyCode()" id="copy-btn" title="Copy Code"><i class="fas fa-copy"></i><span id="copy-confirm" style="display: none; margin-left: 5px; color: lime; font-size: 16px;">✔</span></button>
+
     Copy
     <span id="copy-confirm" style="
       display: none;
@@ -65,7 +66,7 @@
     </div>
   </div>
 
-<!-- 🔵 Output + TCM Assistance -->
+<!-- 🔵 Output -->
 <div class="output">
   <div class="output-box">
     <h2>Output</h2>
@@ -73,21 +74,7 @@
   </div>
 
 
-  <div class="tcm-box">
-    <h2>TCM Assistance</h2>
-    
-    <!-- תיבת שיחה - תציג את כל השאלות והתשובות -->
-    <pre id="tcm-output">
-I'm ready to help you.
-    </pre>
-
-    <textarea
-      id="tcm-input"
-      placeholder="Ask a Python question..."
-      onkeydown="if(event.key === 'Enter') { askTCMAssistant(); event.preventDefault(); }"
-></textarea>
-    
-  </div>
+  
 </div>
 
 

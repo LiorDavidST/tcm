@@ -1,4 +1,3 @@
-// ✅ שדרוג askTCMAssistant עם מנגנון ביטול קריאה קודמת
 let modelTimeoutId = null;
 let currentFetchController = null;
 
@@ -332,87 +331,7 @@ function toggleNeonColor() {
 
 }
 
-// 🔍 עדכון פונקציה askTCMAssistant עם לוגים
-async function askTCMAssistant() {
-  const input = document.getElementById("tcm-input");
-  const output = document.getElementById("tcm-output");
-  const question = input.value.trim();
-  if (!question) return;
 
-  const isAutoSuggest = question === "suggest";
-  let assistantDiv = null;
-
-  if (!isAutoSuggest) {
-    const exchange = document.createElement("div");
-    exchange.className = "tcm-exchange";
-
-    const userDiv = document.createElement("div");
-    userDiv.className = "user-question";
-    userDiv.innerHTML = `<strong>You:</strong> ${question}`;
-
-    assistantDiv = document.createElement("div");
-    assistantDiv.className = "assistant-reply";
-    assistantDiv.textContent = "Assistant is thinking...";
-
-    exchange.appendChild(userDiv);
-    exchange.appendChild(assistantDiv);
-    output.appendChild(exchange);
-    output.scrollTop = output.scrollHeight;
-  }
-
-  input.value = "";
-
-  // ביטול קריאה קודמת אם קיימת
-  if (currentFetchController) currentFetchController.abort();
-  currentFetchController = new AbortController();
-  const signal = currentFetchController.signal;
-
-  const lesson = lessonsData.lessons?.[currentLessonIndex];
-  const topic = lesson?.topics?.[currentTopicIndex];
-  const subtopic = topic?.subtopics?.[currentSubtopicIndex || 0];
-  const currentTopicTitle = subtopic?.title || topic?.title || null;
-
-  let questionText = question.toLowerCase() === "suggest"
-    ? "suggest"
-    : ["1", "2", "3"].includes(question.trim())
-      ? `option_${question.trim()}`
-      : question;
-
-  const payload = {
-    question: questionText,
-    current_lesson_topic: currentTopicTitle
-  };
-
-  console.log("📤 שולח למודל את השאלה:", payload);
-
-  try {
-    const response = await fetch("/ask", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-      signal
-    });
-
-    const data = await response.json();
-    console.log("📥 תשובה מהמודל:", data);
-    const reply = data.answer || "⚠️ No response received.";
-
-    if (isAutoSuggest) {
-      output.innerHTML = `<div class='assistant-reply'>${marked.parse(reply)}</div>`;
-    } else if (assistantDiv) {
-      assistantDiv.innerHTML = marked.parse(reply);
-      output.scrollTop = output.scrollHeight;
-    }
-
-  } catch (err) {
-    if (err.name === 'AbortError') {
-      console.warn("🔁 קריאה בוטלה לפני סיום (abort)");
-    } else if (assistantDiv) {
-      assistantDiv.innerHTML = `❌ Error: ${err.message}`;
-      output.scrollTop = output.scrollHeight;
-    }
-  }
-}
 
 // ⬇️ הפעלת טעינת שיעורים כשדף נטען
 window.onload = loadLessons;
