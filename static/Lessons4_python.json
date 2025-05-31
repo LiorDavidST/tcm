@@ -1,0 +1,67 @@
+{
+  "lessons": [
+    {
+      "title": "Lesson 4: Strings and File Handling",
+      "topics": [
+        {
+          "title": "String Slicing",
+          "theory": "You can access parts of a string using slicing. The syntax is string[start:end], where 'start' is included and 'end' is excluded.\n\nExample:\ntext = 'Python'\nprint(text[1:4])  # 'yth'",
+          "exercise": "1. Extract the word 'code' from the string 'Learn to code in Python'.",
+          "starter_code": "sentence = 'Learn to code in Python'\n# Your code here",
+          "solution": "sentence = 'Learn to code in Python'\nprint(sentence[9:13])"
+        },
+        {
+          "title": "Common String Methods",
+          "theory": "Strings have built-in methods like upper(), lower(), replace(), split(), and join().\n\nExample:\ntext = 'hello world'\nprint(text.upper())  # 'HELLO WORLD'",
+          "exercise": "1. Replace the word 'bad' with 'good' in the sentence.",
+          "starter_code": "sentence = 'This is a bad example.'\n# Your code here",
+          "solution": "sentence = 'This is a bad example.'\nsentence = sentence.replace('bad', 'good')\nprint(sentence)"
+        },
+        {
+          "title": "Formatted Strings (f-strings)",
+          "theory": "Formatted string literals (f-strings) allow embedding expressions inside string literals, using {}.\n\nExample:\nname = 'Alice'\nage = 30\nprint(f'{name} is {age} years old.')",
+          "exercise": "1. Format a greeting message using name and age.",
+          "starter_code": "name = 'Tom'\nage = 25\n# Your code here",
+          "solution": "name = 'Tom'\nage = 25\nprint(f'Hello {name}, you are {age} years old!')"
+        },
+        {
+          "title": "Reading from a File",
+          "theory": "You can open a file using `open()`, and read its contents with `read()` or `readlines()`.\n\nExample:\nwith open('file.txt') as f:\n    content = f.read()\n    print(content)",
+          "exercise": "1. Read from a file named 'info.txt' and print the content.",
+          "starter_code": "# Your code here",
+          "solution": "with open('info.txt', 'r') as file:\n    content = file.read()\n    print(content)"
+        },
+        {
+          "title": "Writing to a File",
+          "theory": "Use `write()` to write to a file. Use `with open()` to ensure proper resource handling.\n\nExample:\nwith open('output.txt', 'w') as f:\n    f.write('Hello file!')",
+          "exercise": "1. Write the string 'Learning Python!' to a file named 'notes.txt'.",
+          "starter_code": "# Your code here",
+          "solution": "with open('notes.txt', 'w') as file:\n    file.write('Learning Python!')"
+        },
+        {
+          "title": "Final Practice – Strings and Files",
+          "subtopics": [
+            {
+              "title": "Practice 1: Count Words",
+              "exercise": "Write a program that reads a line of text and prints the number of words.",
+              "theory": "Use input() and split() to count words.\n\nExample:\ntext = input()\nprint(len(text.split()))",
+              "solution": "text = input(\"Enter a sentence: \")\nprint(\"Word count:\", len(text.split()))"
+            },
+            {
+              "title": "Practice 2: Save Greeting to File",
+              "exercise": "Ask for a user's name and write a greeting to 'greeting.txt'.",
+              "theory": "Use input() and file write().",
+              "solution": "name = input(\"Enter your name: \")\nwith open('greeting.txt', 'w') as f:\n    f.write(f'Hello, {name}!')"
+            },
+            {
+              "title": "Practice 3: Read File and Print in Uppercase",
+              "exercise": "Read from 'text.txt' and print the content in uppercase.",
+              "theory": "Use read() and upper().",
+              "solution": "with open('text.txt', 'r') as f:\n    content = f.read()\n    print(content.upper())"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

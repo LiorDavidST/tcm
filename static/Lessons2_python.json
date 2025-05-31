@@ -34,6 +34,13 @@
           "starter_code": "for i in range(1, 11):\n    print(i)"
         },
         {
+          "title": "Loop Control – Break and Continue",
+          "theory": "`break` stops a loop immediately. `continue` skips the current iteration and moves to the next.\n\nExample:\nfor i in range(5):\n    if i == 3:\n        break\n    print(i)  # Prints 0, 1, 2",
+          "example": "for i in range(5):\n    if i == 3:\n        break\n    print(i)",
+          "exercise": "1. Write a loop that prints numbers 1 to 10, but skips 5.",
+          "starter_code": "for i in range(1, 11):\n    if i == 5:\n        continue\n    print(i)"
+        },
+        {
           "title": "Final Practice",
           "theory": "You've learned how to write conditions and loops. Now try combining them.",
           "subtopics": [
@@ -60,20 +67,7 @@
               "exercise": "Use a for loop to print only even numbers from 1 to 20.",
               "theory": "`for` loops are used to go over ranges or lists. You can use conditions inside them too.\n\nExample:\nfor i in range(10):\n    if i % 2 == 0:\n        print(i)",
               "solution": "for i in range(1, 21):\n    if i % 2 == 0:\n        print(i)"
-            }
-          ]
-        },
-        {
-          "title": "Loop Control – Break and Continue",
-          "theory": "`break` stops a loop immediately. `continue` skips the current iteration and moves to the next.\n\nExample:\nfor i in range(5):\n    if i == 3:\n        break\n    print(i)  # Prints 0, 1, 2",
-          "example": "for i in range(5):\n    if i == 3:\n        break\n    print(i)",
-          "exercise": "1. Write a loop that prints numbers 1 to 10, but skips 5.",
-          "starter_code": "for i in range(1, 11):\n    if i == 5:\n        continue\n    print(i)"
-        },
-        {
-          "title": "Final Practice – Multi-Condition and Loops",
-          "theory": "This challenge combines loops, conditions, and user input.\n\nExample:\nAsk the user to enter 5 numbers. After each entry, tell if the number is even or odd. Then calculate the total sum.",
-          "subtopics": [
+            },
             {
               "title": "Practice 5: Multiple Inputs and Decision Making",
               "exercise": "Ask the user to enter 5 numbers. For each, print whether it's even or odd. Then print the total sum.",

@@ -1,0 +1,74 @@
+{
+  "lessons": [
+    {
+      "title": "Lesson 5: Dictionaries and Error Handling",
+      "topics": [
+        {
+          "title": "Introduction to Dictionaries",
+          "theory": "Dictionaries store data in key-value pairs. Keys must be unique and immutable. Define a dictionary using curly braces {}.\n\nExample:\nperson = {\"name\": \"Alice\", \"age\": 30}",
+          "exercise": "1. Create a dictionary with your name and age, and print it.",
+          "starter_code": "person = {\"name\": \"Your Name\", \"age\": 25}\nprint(person)",
+          "solution": "person = {\"name\": \"Your Name\", \"age\": 25}\nprint(person)"
+        },
+        {
+          "title": "Accessing and Modifying Dictionary Values",
+          "theory": "You can access values using keys: dict[key]. You can also modify them or add new key-value pairs.\n\nExample:\nperson[\"age\"] = 31",
+          "exercise": "2. Change the age in your dictionary and print the updated dictionary.",
+          "starter_code": "person = {\"name\": \"Your Name\", \"age\": 25}\n# Your code here",
+          "solution": "person = {\"name\": \"Your Name\", \"age\": 25}\nperson[\"age\"] = 26\nprint(person)"
+        },
+        {
+          "title": "Dictionary Methods",
+          "theory": "Common methods include keys(), values(), items(), get(), and pop().\n\nExample:\nprint(person.get(\"name\"))",
+          "exercise": "3. Use get() to safely retrieve the age and print it.",
+          "starter_code": "person = {\"name\": \"Your Name\", \"age\": 25}\n# Your code here",
+          "solution": "person = {\"name\": \"Your Name\", \"age\": 25}\nprint(person.get(\"age\"))"
+        },
+        {
+          "title": "Looping through Dictionaries",
+          "theory": "Use for loops to iterate over keys, values, or key-value pairs.\n\nExample:\nfor key, value in person.items():\n    print(key, value)",
+          "exercise": "4. Print each key and value in a dictionary.",
+          "starter_code": "person = {\"name\": \"Your Name\", \"age\": 25}\n# Your code here",
+          "solution": "person = {\"name\": \"Your Name\", \"age\": 25}\nfor key, value in person.items():\n    print(key, value)"
+        },
+        {
+          "title": "Introduction to Error Handling",
+          "theory": "Errors are common. Python uses try-except blocks to handle them gracefully.\n\nExample:\ntry:\n    x = 10 / 0\nexcept ZeroDivisionError:\n    print(\"Cannot divide by zero\")",
+          "exercise": "5. Handle division by zero using try-except.",
+          "starter_code": "x = 10\ny = 0\n# Your code here",
+          "solution": "x = 10\ny = 0\ntry:\n    print(x / y)\nexcept ZeroDivisionError:\n    print(\"You can't divide by zero!\")"
+        },
+        {
+          "title": "Raising Exceptions",
+          "theory": "Use raise to trigger an exception manually when needed.\n\nExample:\nif age < 0:\n    raise ValueError(\"Age can't be negative\")",
+          "exercise": "6. Raise an exception if age is negative.",
+          "starter_code": "age = -5\n# Your code here",
+          "solution": "age = -5\nif age < 0:\n    raise ValueError(\"Age can't be negative\")"
+        },
+        {
+          "title": "Final Practice – Dictionaries and Error Handling",
+          "subtopics": [
+            {
+              "title": "Practice 1: Dictionary Lookup",
+              "exercise": "Create a dictionary of 3 cities and their populations. Ask the user for a city name and print the population using get().",
+              "theory": "Use get() to avoid KeyError if the city is not found.",
+              "solution": "cities = {\"Tel Aviv\": 460000, \"Jerusalem\": 900000, \"Haifa\": 280000}\ncity = input(\"Enter a city name: \")\npop = cities.get(city, \"City not found\")\nprint(pop)"
+            },
+            {
+              "title": "Practice 2: Safe Division",
+              "exercise": "Ask the user to enter two numbers and divide them. Use try-except to handle division by zero.",
+              "theory": "Always check for division by zero when dividing input values.",
+              "solution": "try:\n    a = int(input(\"Enter numerator: \"))\n    b = int(input(\"Enter denominator: \"))\n    print(a / b)\nexcept ZeroDivisionError:\n    print(\"Cannot divide by zero\")"
+            },
+            {
+              "title": "Practice 3: Input Validation",
+              "exercise": "Ask the user for their age. If it's negative, raise an exception.",
+              "theory": "Validate user input using conditional checks and raise exceptions when invalid.",
+              "solution": "age = int(input(\"Enter your age: \"))\nif age < 0:\n    raise ValueError(\"Age can't be negative\")\nelse:\n    print(\"Your age is:\", age)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
