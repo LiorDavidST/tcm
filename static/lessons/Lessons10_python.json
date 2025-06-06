@@ -3,29 +3,23 @@
     {
       "title": "Lesson 10: Final Project – Integrating Python Basics",
       "topics": [
-
         {
-          "title": "Final Practice – Summary Projects",
-          "subtopics": [
-            {
-              "title": "Project 1: Personal Budget Tracker",
-              "exercise": "Build a command-line budget tracker that:\n1. Asks the user for income and expenses.\n2. Uses functions to calculate totals and balance.\n3. Stores items in lists and prints a formatted summary.\n4. Writes the results to a file ('budget.txt') and reads it back.",
-              "theory": "This project revisits variables, input/output, functions, lists, string formatting, and file handling.",
-              "solution": "def get_data():\n    income = float(input(\"Enter your income: \"))\n    expenses = []\n    for i in range(3):\n        e = float(input(f\"Enter expense {i+1}: \"))\n        expenses.append(e)\n    return income, expenses\n\ndef calc_balance(income, expenses):\n    return income - sum(expenses)\n\ndef save_summary(income, expenses, balance):\n    with open(\"budget.txt\", \"w\") as f:\n        f.write(f\"Income: {income}\\n\")\n        for i, e in enumerate(expenses):\n            f.write(f\"Expense {i+1}: {e}\\n\")\n        f.write(f\"Balance: {balance}\\n\")\n\nincome, expenses = get_data()\nbalance = calc_balance(income, expenses)\nsave_summary(income, expenses, balance)\nprint(f\"Balance saved. You have ${balance:.2f} left.\")"
-            },
-            {
-              "title": "Project 2: Contact Manager with Sets and Tuples",
-              "exercise": "Create a simple contact manager that:\n1. Allows adding contacts as tuples (name, phone).\n2. Uses a set to store unique contacts.\n3. Offers a menu with add/view/exit options.\n4. Uses loops and conditional logic to interact.",
-              "theory": "Reinforces working with tuples, sets, loops, input, and logic flow.",
-              "solution": "contacts = set()\nwhile True:\n    print(\"\\n1. Add Contact\\n2. View Contacts\\n3. Exit\")\n    choice = input(\"Choose an option: \")\n    if choice == \"1\":\n        name = input(\"Name: \")\n        phone = input(\"Phone: \")\n        contacts.add((name, phone))\n    elif choice == \"2\":\n        for c in contacts:\n            print(f\"{c[0]} - {c[1]}\")\n    elif choice == \"3\":\n        break\n    else:\n        print(\"Invalid option.\")"
-            },
-            {
-              "title": "Project 3: Logical Game – Number Guesser",
-              "exercise": "Develop a guessing game that:\n1. Generates a random number between 1–20.\n2. Asks the user to guess up to 5 times.\n3. Gives hints if the guess is too high or low.\n4. Tracks attempts and uses logical operators.",
-              "theory": "Applies loops, conditionals, random module, input handling, and boolean logic.",
-              "solution": "import random\nnumber = random.randint(1, 20)\nattempts = 0\nwhile attempts < 5:\n    guess = int(input(\"Guess the number (1–20): \"))\n    attempts += 1\n    if guess == number:\n        print(f\"Correct! You guessed it in {attempts} tries.\")\n        break\n    elif guess < number:\n        print(\"Too low.\")\n    else:\n        print(\"Too high.\")\nelse:\n    print(f\"Out of tries! The number was {number}.\")"
-            }
-          ]
+          "title": "Project 1: Personal Budget Tracker",
+          "exercise": "Build a command-line budget tracker that:\n1. Asks the user for income and expenses.\n2. Uses functions to calculate totals and balance.\n3. Stores items in lists and prints a formatted summary.\n4. Writes the results to a file ('budget.txt') and reads it back.",
+          "theory": "This project revisits variables, input/output, functions, lists, string formatting, and file handling.",
+          "solution": "def get_data():\n    income = float(input(\"Enter your income: \"))\n    expenses = []\n    for i in range(3):\n        e = float(input(f\"Enter expense {i+1}: \"))\n        expenses.append(e)\n    return income, expenses\n\ndef calc_balance(income, expenses):\n    return income - sum(expenses)\n\ndef save_summary(income, expenses, balance):\n    with open(\"budget.txt\", \"w\") as f:\n        f.write(f\"Income: {income}\\n\")\n        for i, e in enumerate(expenses):\n            f.write(f\"Expense {i+1}: {e}\\n\")\n        f.write(f\"Balance: {balance}\\n\")\n\nincome, expenses = get_data()\nbalance = calc_balance(income, expenses)\nsave_summary(income, expenses, balance)\nprint(f\"Balance saved. You have ${balance:.2f} left.\")"
+        },
+        {
+          "title": "Project 2: Contact Manager with Sets and Tuples",
+          "exercise": "Create a simple contact manager that:\n1. Allows adding contacts as tuples (name, phone).\n2. Uses a set to store unique contacts.\n3. Offers a menu with add/view/exit options.\n4. Uses loops and conditional logic to interact.",
+          "theory": "Reinforces working with tuples, sets, loops, input, and logic flow.",
+          "solution": "contacts = set()\nwhile True:\n    print(\"\\n1. Add Contact\\n2. View Contacts\\n3. Exit\")\n    choice = input(\"Choose an option: \")\n    if choice == \"1\":\n        name = input(\"Name: \")\n        phone = input(\"Phone: \")\n        contacts.add((name, phone))\n    elif choice == \"2\":\n        for c in contacts:\n            print(f\"{c[0]} - {c[1]}\")\n    elif choice == \"3\":\n        break\n    else:\n        print(\"Invalid option.\")"
+        },
+        {
+          "title": "Project 3: Logical Game – Number Guesser",
+          "exercise": "Develop a guessing game that:\n1. Generates a random number between 1–20.\n2. Asks the user to guess up to 5 times.\n3. Gives hints if the guess is too high or low.\n4. Tracks attempts and uses logical operators.",
+          "theory": "Applies loops, conditionals, random module, input handling, and boolean logic.",
+          "solution": "import random\nnumber = random.randint(1, 20)\nattempts = 0\nwhile attempts < 5:\n    guess = int(input(\"Guess the number (1–20): \"))\n    attempts += 1\n    if guess == number:\n        print(f\"Correct! You guessed it in {attempts} tries.\")\n        break\n    elif guess < number:\n        print(\"Too low.\")\n    else:\n        print(\"Too high.\")\nelse:\n    print(f\"Out of tries! The number was {number}.\")"
         }
       ]
     }

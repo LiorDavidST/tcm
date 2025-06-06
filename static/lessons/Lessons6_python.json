@@ -4,129 +4,124 @@
       "title": "Lesson 6: Practice – Review of Lessons 1–5",
       "topics": [
         {
-          "title": "Final Practice – Review by Topic",
-          "subtopics": [
-            {
-              "title": "Practice 1: Simple Math",
-              "theory": "Perform arithmetic using variables.",
-              "exercise": "1. Define two float numbers.\n2. Print their division result with a message.",
-              "solution": "a = 9.0\nb = 3.0\nprint(f\"The result is {a / b}\")"
-            },
-            {
-              "title": "Practice 2: Input and Output",
-              "theory": "Use input() and print() for basic interaction.",
-              "exercise": "1. Ask the user for their city name.\n2. Greet them using the city name.",
-              "solution": "city = input(\"Enter your city: \")\nprint(f\"Welcome from {city}!\")"
-            },
-            {
-              "title": "Practice 3: Type Conversion",
-              "theory": "Convert between int and float types.",
-              "exercise": "1. Ask for two numbers as strings.\n2. Convert and multiply them as floats.",
-              "solution": "a = float(input(\"First number: \"))\nb = float(input(\"Second number: \"))\nprint(f\"Product: {a * b}\")"
-            },
-            {
-              "title": "Practice 4: Conditional Logic",
-              "theory": "Use if-else to determine values.",
-              "exercise": "1. Ask the user for a grade (0–100).\n2. Print 'Pass' or 'Fail'.",
-              "solution": "grade = int(input(\"Enter your grade: \"))\nif grade >= 60:\n    print(\"Pass\")\nelse:\n    print(\"Fail\")"
-            },
-            {
-              "title": "Practice 5: Temperature Checker",
-              "theory": "Use elif to handle ranges.",
-              "exercise": "1. Input a temperature.\n2. Print if it's cold, moderate, or hot.",
-              "solution": "temp = float(input(\"Enter temperature: \"))\nif temp < 10:\n    print(\"Cold\")\nelif temp < 25:\n    print(\"Moderate\")\nelse:\n    print(\"Hot\")"
-            },
-            {
-              "title": "Practice 6: Countdown Loop",
-              "theory": "Use while loop for repetition.",
-              "exercise": "1. Ask for a number.\n2. Count down to 0.",
-              "solution": "n = int(input(\"Enter a number: \"))\nwhile n >= 0:\n    print(n)\n    n -= 1"
-            },
-            {
-              "title": "Practice 7: Loop Sum",
-              "theory": "Sum integers with a loop.",
-              "exercise": "1. Use a loop to sum numbers from 1 to 50.",
-              "solution": "total = 0\nfor i in range(1, 51):\n    total += i\nprint(total)"
-            },
-            {
-              "title": "Practice 8: Skip Multiples",
-              "theory": "Use continue to skip conditions.",
-              "exercise": "1. Print numbers from 1–20 excluding multiples of 4.",
-              "solution": "for i in range(1, 21):\n    if i % 4 == 0:\n        continue\n    print(i)"
-            },
-            {
-              "title": "Practice 9: Square List",
-              "theory": "Use a list to store computed values.",
-              "exercise": "1. Create a list of numbers 1 to 5.\n2. Print their squares.",
-              "solution": "nums = [1, 2, 3, 4, 5]\nfor n in nums:\n    print(n ** 2)"
-            },
-            {
-              "title": "Practice 10: Reverse List",
-              "theory": "Use slicing or reversed() to reverse a list.",
-              "exercise": "1. Reverse a list of letters and print.",
-              "solution": "letters = ['a', 'b', 'c', 'd']\nprint(list(reversed(letters)))"
-            },
-            {
-              "title": "Practice 11: List Average",
-              "theory": "Calculate average from list values.",
-              "exercise": "1. Compute the average of [10, 20, 30, 40].",
-              "solution": "nums = [10, 20, 30, 40]\navg = sum(nums) / len(nums)\nprint(avg)"
-            },
-            {
-              "title": "Practice 12: Custom Function",
-              "theory": "Create a function that returns a result.",
-              "exercise": "1. Write a function that returns the square of a number.",
-              "solution": "def square(x):\n    return x ** 2\nprint(square(4))"
-            },
-            {
-              "title": "Practice 13: Greetings Function",
-              "theory": "Use function parameters and return strings.",
-              "exercise": "1. Write a function that greets a user by name.",
-              "solution": "def greet(name):\n    return f\"Hello, {name}!\"\nprint(greet(\"Liam\"))"
-            },
-            {
-              "title": "Practice 14: String Joiner",
-              "theory": "Use join() to combine a list of strings.",
-              "exercise": "1. Join ['Hello', 'world'] with a space.",
-              "solution": "words = ['Hello', 'world']\nprint(' '.join(words))"
-            },
-            {
-              "title": "Practice 15: String Replace",
-              "theory": "Use replace() to modify strings.",
-              "exercise": "1. Replace 'bad' with 'good' in a sentence.",
-              "solution": "sentence = \"That is a bad idea.\"\nprint(sentence.replace(\"bad\", \"good\"))"
-            },
-            {
-              "title": "Practice 16: Word Count",
-              "theory": "Use split() and len() to count words.",
-              "exercise": "1. Ask the user for a sentence and print the word count.",
-              "solution": "text = input(\"Enter a sentence: \")\nprint(len(text.split()))"
-            },
-            {
-              "title": "Practice 17: File Writing",
-              "theory": "Write text to a file using open().",
-              "exercise": "1. Save your favorite quote to 'quote.txt'.",
-              "solution": "quote = input(\"Enter a quote: \")\nwith open(\"quote.txt\", \"w\") as f:\n    f.write(quote)"
-            },
-            {
-              "title": "Practice 18: File Reading",
-              "theory": "Read and print content from a file.",
-              "exercise": "1. Read and print the contents of 'quote.txt'.",
-              "solution": "with open(\"quote.txt\", \"r\") as f:\n    print(f.read())"
-            },
-            {
-              "title": "Practice 19: Dictionary Search",
-              "theory": "Use get() to safely retrieve values.",
-              "exercise": "1. Look up a country’s capital from a dictionary.",
-              "solution": "capitals = {\"France\": \"Paris\", \"Japan\": \"Tokyo\"}\ncountry = input(\"Enter a country: \")\nprint(capitals.get(country, \"Not found\"))"
-            },
-            {
-              "title": "Practice 20: Dictionary Counter",
-              "theory": "Use a dictionary to count item occurrences.",
-              "exercise": "1. Count how many times each word appears in a list.",
-              "solution": "words = [\"apple\", \"banana\", \"apple\", \"orange\"]\ncounts = {}\nfor word in words:\n    counts[word] = counts.get(word, 0) + 1\nprint(counts)"
-            }
-          ]
+          "title": "Practice 1: Simple Math",
+          "theory": "Perform arithmetic using variables.",
+          "exercise": "1. Define two float numbers.\n2. Print their division result with a message.",
+          "solution": "a = 9.0\nb = 3.0\nprint(f\"The result is {a / b}\")"
+        },
+        {
+          "title": "Practice 2: Input and Output",
+          "theory": "Use input() and print() for basic interaction.",
+          "exercise": "1. Ask the user for their city name.\n2. Greet them using the city name.",
+          "solution": "city = input(\"Enter your city: \")\nprint(f\"Welcome from {city}!\")"
+        },
+        {
+          "title": "Practice 3: Type Conversion",
+          "theory": "Convert between int and float types.",
+          "exercise": "1. Ask for two numbers as strings.\n2. Convert and multiply them as floats.",
+          "solution": "a = float(input(\"First number: \"))\nb = float(input(\"Second number: \"))\nprint(f\"Product: {a * b}\")"
+        },
+        {
+          "title": "Practice 4: Conditional Logic",
+          "theory": "Use if-else to determine values.",
+          "exercise": "1. Ask the user for a grade (0–100).\n2. Print 'Pass' or 'Fail'.",
+          "solution": "grade = int(input(\"Enter your grade: \"))\nif grade >= 60:\n    print(\"Pass\")\nelse:\n    print(\"Fail\")"
+        },
+        {
+          "title": "Practice 5: Temperature Checker",
+          "theory": "Use elif to handle ranges.",
+          "exercise": "1. Input a temperature.\n2. Print if it's cold, moderate, or hot.",
+          "solution": "temp = float(input(\"Enter temperature: \"))\nif temp < 10:\n    print(\"Cold\")\nelif temp < 25:\n    print(\"Moderate\")\nelse:\n    print(\"Hot\")"
+        },
+        {
+          "title": "Practice 6: Countdown Loop",
+          "theory": "Use while loop for repetition.",
+          "exercise": "1. Ask for a number.\n2. Count down to 0.",
+          "solution": "n = int(input(\"Enter a number: \"))\nwhile n >= 0:\n    print(n)\n    n -= 1"
+        },
+        {
+          "title": "Practice 7: Loop Sum",
+          "theory": "Sum integers with a loop.",
+          "exercise": "1. Use a loop to sum numbers from 1 to 50.",
+          "solution": "total = 0\nfor i in range(1, 51):\n    total += i\nprint(total)"
+        },
+        {
+          "title": "Practice 8: Skip Multiples",
+          "theory": "Use continue to skip conditions.",
+          "exercise": "1. Print numbers from 1–20 excluding multiples of 4.",
+          "solution": "for i in range(1, 21):\n    if i % 4 == 0:\n        continue\n    print(i)"
+        },
+        {
+          "title": "Practice 9: Square List",
+          "theory": "Use a list to store computed values.",
+          "exercise": "1. Create a list of numbers 1 to 5.\n2. Print their squares.",
+          "solution": "nums = [1, 2, 3, 4, 5]\nfor n in nums:\n    print(n ** 2)"
+        },
+        {
+          "title": "Practice 10: Reverse List",
+          "theory": "Use slicing or reversed() to reverse a list.",
+          "exercise": "1. Reverse a list of letters and print.",
+          "solution": "letters = ['a', 'b', 'c', 'd']\nprint(list(reversed(letters)))"
+        },
+        {
+          "title": "Practice 11: List Average",
+          "theory": "Calculate average from list values.",
+          "exercise": "1. Compute the average of [10, 20, 30, 40].",
+          "solution": "nums = [10, 20, 30, 40]\navg = sum(nums) / len(nums)\nprint(avg)"
+        },
+        {
+          "title": "Practice 12: Custom Function",
+          "theory": "Create a function that returns a result.",
+          "exercise": "1. Write a function that returns the square of a number.",
+          "solution": "def square(x):\n    return x ** 2\nprint(square(4))"
+        },
+        {
+          "title": "Practice 13: Greetings Function",
+          "theory": "Use function parameters and return strings.",
+          "exercise": "1. Write a function that greets a user by name.",
+          "solution": "def greet(name):\n    return f\"Hello, {name}!\"\nprint(greet(\"Liam\"))"
+        },
+        {
+          "title": "Practice 14: String Joiner",
+          "theory": "Use join() to combine a list of strings.",
+          "exercise": "1. Join ['Hello', 'world'] with a space.",
+          "solution": "words = ['Hello', 'world']\nprint(' '.join(words))"
+        },
+        {
+          "title": "Practice 15: String Replace",
+          "theory": "Use replace() to modify strings.",
+          "exercise": "1. Replace 'bad' with 'good' in a sentence.",
+          "solution": "sentence = \"That is a bad idea.\"\nprint(sentence.replace(\"bad\", \"good\"))"
+        },
+        {
+          "title": "Practice 16: Word Count",
+          "theory": "Use split() and len() to count words.",
+          "exercise": "1. Ask the user for a sentence and print the word count.",
+          "solution": "text = input(\"Enter a sentence: \")\nprint(len(text.split()))"
+        },
+        {
+          "title": "Practice 17: File Writing",
+          "theory": "Write text to a file using open().",
+          "exercise": "1. Save your favorite quote to 'quote.txt'.",
+          "solution": "quote = input(\"Enter a quote: \")\nwith open(\"quote.txt\", \"w\") as f:\n    f.write(quote)"
+        },
+        {
+          "title": "Practice 18: File Reading",
+          "theory": "Read and print content from a file.",
+          "exercise": "1. Read and print the contents of 'quote.txt'.",
+          "solution": "with open(\"quote.txt\", \"r\") as f:\n    print(f.read())"
+        },
+        {
+          "title": "Practice 19: Dictionary Search",
+          "theory": "Use get() to safely retrieve values.",
+          "exercise": "1. Look up a country’s capital from a dictionary.",
+          "solution": "capitals = {\"France\": \"Paris\", \"Japan\": \"Tokyo\"}\ncountry = input(\"Enter a country: \")\nprint(capitals.get(country, \"Not found\"))"
+        },
+        {
+          "title": "Practice 20: Dictionary Counter",
+          "theory": "Use a dictionary to count item occurrences.",
+          "exercise": "1. Count how many times each word appears in a list.",
+          "solution": "words = [\"apple\", \"banana\", \"apple\", \"orange\"]\ncounts = {}\nfor word in words:\n    counts[word] = counts.get(word, 0) + 1\nprint(counts)"
         }
       ]
     }

@@ -220,7 +220,6 @@ function renderLessonList() {
 
     const lessonKey = `lesson${lessonIdx}`;
 
-
     const titleSpan = document.createElement('span');
     titleSpan.textContent = lesson.title;
     titleSpan.classList.add('lesson-title-text');
@@ -253,23 +252,21 @@ function renderLessonList() {
       const key = `lesson${lessonIdx}.topic${topicIdx}`;
       const vIcon = document.createElement('span');
       vIcon.textContent = '✔';
-      vIcon.classList.add('v-icon');
-      vIcon.classList.remove('enabled', 'auto-enabled');
+      vIcon.className = 'v-icon'; // אפס את כל המחלקות הקודמות
+
       if (topic.subtopics) {
-        vIcon.classList.toggle('auto-enabled', progressMap[key]);
+        if (progressMap[key]) vIcon.classList.add('auto-enabled');
       } else {
-        vIcon.classList.toggle('enabled', progressMap[key]);
-        vIcon.onclick = (e) => {
-          e.stopPropagation();
-          progressMap[key] = !progressMap[key];
-if (topic.subtopics) {
-  vIcon.classList.toggle('auto-enabled', progressMap[key]);
-} else {
-  vIcon.classList.toggle('enabled', progressMap[key]);
-}
-          updateAutoChecks();
-        };
+        if (progressMap[key]) vIcon.classList.add('enabled');
       }
+
+      vIcon.onclick = (e) => {
+        e.stopPropagation();
+        progressMap[key] = !progressMap[key];
+        vIcon.classList.toggle('enabled', progressMap[key]);
+        updateAutoChecks();
+      };
+
       topicItem.appendChild(vIcon);
 
       const titleSpan = document.createElement('span');
@@ -300,14 +297,16 @@ if (topic.subtopics) {
             const key = `lesson${lessonIdx}.topic${topicIdx}.sub${subIdx}`;
             const vIcon = document.createElement('span');
             vIcon.textContent = '✔';
-            vIcon.classList.add('v-icon');
-            vIcon.classList.toggle('enabled', progressMap[key]);
+            vIcon.className = 'v-icon';
+            if (progressMap[key]) vIcon.classList.add('enabled');
+
             vIcon.onclick = (e) => {
               e.stopPropagation();
               progressMap[key] = !progressMap[key];
               vIcon.classList.toggle('enabled', progressMap[key]);
               updateAutoChecks();
             };
+
             subtopicItem.appendChild(vIcon);
 
             const titleSpan = document.createElement('span');
@@ -333,6 +332,10 @@ if (topic.subtopics) {
     lessonList.appendChild(lessonItem);
   });
 }
+
+
+
+
 
 
 
