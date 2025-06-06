@@ -53,7 +53,7 @@
             {
               "title": "Practice 2: Nested If with Input",
               "exercise": "Ask for age and if over 18, ask for license status and print a message.",
-              "theory": "`if` statements let you run code only if a condition is true. Combine with input for user interaction.\n\nExample:\nnum = 5\nif num > 0:\n    print(\"Positive\")",
+              "theory": "A nested if statement means placing one if statement inside another. This structure is useful when multiple layers of conditions need to be checked. For example, you might want to check if a number is even, and then check if it is also greater than a certain value.\n\nExample:\n```python\nnum = 8\nif num % 2 == 0:\n    if num > 5:\n        print(\"Even and greater than 5\")\n```",
               "solution": "age = int(input(\"Enter age: \"))\nif age >= 18:\n    has_license = input(\"Do you have a license? (yes/no): \")\n    if has_license == \"yes\":\n        print(\"You can drive\")\n    else:\n        print(\"You cannot drive\")\nelse:\n    print(\"Too young to drive\")"
             },
             {
@@ -69,11 +69,11 @@
               "solution": "for i in range(1, 21):\n    if i % 2 == 0:\n        print(i)"
             },
             {
-              "title": "Practice 5: Multiple Inputs and Decision Making",
-              "exercise": "Ask the user to enter 5 numbers. For each, print whether it's even or odd. Then print the total sum.",
-              "theory": "You can use a `for` loop with `input()`, `if`, and arithmetic together. This is a powerful combination!",
-              "solution": "num = int(input(\"Enter a number: \"))\nif num % 2 == 0:\n    print(\"Even\")\nelse:\n    print(\"Odd\")"
-            }
+  "title": "Practice 5: Multiple Inputs and Decision Making",
+  "exercise": "Ask the user to enter 5 numbers. For each, print whether it's even or odd. Then print the total sum.",
+  "theory": "You can use a `for` loop with `input()`, `if`, and arithmetic together. This is a powerful combination!",
+  "solution": "total = 0\nfor _ in range(5):\n    num = int(input(\"Enter a number: \"))\n    if num % 2 == 0:\n        print(\"Even\")\n    else:\n        print(\"Odd\")\n    total += num\nprint(\"Total sum:\", total)"
+}
           ]
         }
       ]

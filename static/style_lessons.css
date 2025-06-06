@@ -79,28 +79,17 @@ body.light-mode #output {
 
 /* פרופורציות מבנה */
 .sidebar {
-  width: 30%;
+  width: 35%;
   padding: 20px;
-  padding-left: 20px;          /* ✅ מרווח מהגבול השמאלי (הניאון) */
-  padding-right: 50px;         /* ✅ מרווח פנימה כדי להזיז את הסקרול */
+  padding-left: 20px;
+  padding-right: 20px;
   overflow-y: auto;
   overflow-x: hidden;
   border-right: 2px solid #00ffff;
-  scrollbar-gutter: stable both-edges;
-  max-height: 100vh;
-}
-
-.editor {
-  flex: 1; /*width: 40%;*/
-  min-width: 600px;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
   box-sizing: border-box;
-  border-right: 2px solid #00ffff;
-  border-right: 2px solid #00ffff;
-  height: 100vh;
-  overflow: hidden;
+  max-height: 100vh;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 #lesson-content {
@@ -112,35 +101,120 @@ body.light-mode #output {
   box-sizing: border-box;
 }
 
-.output {
-  flex: 1;
-  min-width: 600px;
-  display: flex;
-  flex-direction: column;
+.editor {
+  width: 45%;
   padding: 20px;
   box-sizing: border-box;
-  height: 90vh;
-  overflow: hidden;
+  border-right: 2px solid #00ffff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* האזור הימני הכולל (Output + TCM) */
 .output {
-  flex: 1;
-  min-width: 600px;
-  display: flex;
-  flex-direction: column;
+  width: 35%;
   padding: 20px;
   box-sizing: border-box;
-  height: 100vh; /* גובה מלא של הצד הימני */
-  overflow: auto;
+  height: 100vh;
+  border-left: 2px solid #00ffff;
+  margin-right: 10px;  /* רווח קטן מהקצה הימני */
+  display: flex;
+  flex-direction: column;
 }
+
 
 /* תיבת Output – שליטה בגובה ומרווח */
 .output-box {
-  height: 414px;            /* ⬅️ גובה קבוע לפי הצורך שלך */
+  height: 358px;            /* ⬅️ גובה קבוע לפי הצורך שלך */
   margin-bottom: 15px;      /* ⬅️ רווח לפני ה-TCM */
   display: flex;
   flex-direction: column;
+}
+
+.output-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.progress-area {
+  display: flex;
+  flex-direction: column;
+  overflow-y: visible;
+  margin-top: 5px;
+  padding-top: 10px;
+  border-top: 1px solid #444;
+}
+
+
+
+.progress-heading {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+
+/* אזור התקדמות */
+.progress-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-top: 5px;
+  padding-top: 10px;
+  border-top: 1px solid #444;
+}
+
+/* כותרת ידידותית להציג את ההתקדמות */
+.progress-heading {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* סגנון כללי לסרגלי התקדמות */
+.lesson-progress-container,
+.overall-progress-container {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lesson-title,
+.overall-title {
+  font-size: 14px;
+  font-weight: bold;
+  min-width: 120px;
+  text-align: right;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 16px;
+  background-color: #333;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+}
+
+
+.progress-lessons {
+  background-color: #0f9cd0;
+  height: 100%;
+}
+
+.progress-practices {
+  background-color: #ffa726;
+  height: 100%;
+}
+
+.progress-project {
+  background-color: #7e57c2;
+  height: 100%;
 }
 
 /* תיבת TCM – תופסת את כל הגובה הנותר */
@@ -304,7 +378,8 @@ h2 {
 
 /* עורך הקוד הראשי */
 #code {
-  height: 350px; /* שליטה מלאה בגובה */
+  height: 250px !important; /* שליטה מלאה בגובה */
+  flex: none !important;   /* ⬅️ חובה כדי לבטל השפעת Flex */
   width: 100%;
   resize: vertical;
   font-family: 'Courier New', monospace;
@@ -440,7 +515,12 @@ body.light-mode button:hover {
 .sidebar li div {
   width: 100%;
   box-sizing: border-box;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
+
+
 
 /* ביטול המשולש */
 .sidebar li div::after,
@@ -469,9 +549,12 @@ body.light-mode button:hover {
   transition: background-color 0.2s;
 }
 
-.topic-item:hover {
-  background-color: #528bbd;
+.topic-item:hover,
+.topic-item.active {
+  background-color: transparent;
+  color: inherit;
 }
+
 
 .topic-item.active {
   background-color: #007acc;
@@ -760,5 +843,118 @@ body.light-mode #solution-button:hover {
   background-color: #d0d4d8 !important;
   transform: translateY(-2px);
 }
+
+.monaco-editor .editor-widget.suggest-widget,
+.monaco-editor .editor-widget.suggest-widget.visible,
+.monaco-editor .monaco-hover,
+.monaco-editor .margin,
+.monaco-editor .minimap,
+.monaco-editor .overflow-guard > div:first-child > .monaco-editor-hover,
+.monaco-editor .overflow-guard > .monaco-editor-background,
+.monaco-editor .overflow-guard > .decorationsOverviewRuler,
+.monaco-editor .overflow-guard > .margin,
+.monaco-editor .overflow-guard > .minimap,
+.monaco-editor .editor .editor-info-label,
+.monaco-editor .editor .current-language {
+  display: none !important;
+}
+
+/* מעבר חלק תמידי */
+.topic-item {
+  transition: background-color 0.3s ease, color 0.3s ease, border-left 0.3s ease;
+}
+
+/* מצב לילה */
+body.dark-mode .topic-item.active {
+  background-color: #3a3f4b;         /* כהה יותר, פחות ניגוד חריף */
+  font-weight: 600;
+  border-left: 4px solid #00bcd4;   /* כחול טורקיז מרוכך */
+  padding-left: 8px;
+  color: #ffffff;
+}
+
+/* מצב יום */
+body.light-mode .topic-item.active {
+  background-color: #d0ebf9;         /* תכלת רגוע ועדין */
+  font-weight: 600;
+  border-left: 4px solid #1e88e5;    /* כחול בינוני (Google Blue) */
+  padding-left: 8px;
+  color: #000000;
+}
+
+/* עיצוב בסיסי להדגשת Lesson פעיל */
+#lesson-list > li.active-lesson > div {
+  background-color: #3a3f4b;           /* כהה ועדין למצב לילה */
+  font-weight: bold;
+  padding-left: 8px;
+  border-left: 4px solid #00bcd4;      /* פס טורקיז */
+  color: #ffffff;
+}
+
+/* מצב יום */
+body.light-mode #lesson-list > li.active-lesson > div {
+  background-color: #d0ebf9;           /* תכלת רגוע */
+  color: #000000;
+  border-left: 4px solid #1e88e5;      /* פס כחול */
+}
+
+/* ✔ תוקן עבור <li> ו־.topic-item כולל subtopics */
+.sidebar li,
+.sidebar li.topic-item {
+  display: block;
+  width: 100%;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+}
+
+.v-icon {
+  font-size: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.v-icon {
+  font-size: 16px;
+  cursor: pointer;
+  user-select: none;
+  color: gray; /* ברירת מחדל אפורה */
+}
+
+.v-icon.enabled {
+  color: dodgerblue;
+  font-weight: bold;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+.v-icon.auto-enabled {
+  color: limegreen;
+}
+.v-icon:not(.enabled):not(.auto-enabled) {
+  color: gray;
+}
+
+.v-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* מיושרים לשמאל */
+  min-width: 18px;
+  margin-right: 5px; /* רווח מהטקסט מימין */
+}
+
+.topic-item {
+  margin-bottom: 4px;
+}
+
+.topic-item .v-icon {
+  margin-right: 5px;
+}
+
+
 
 

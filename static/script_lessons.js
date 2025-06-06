@@ -1,83 +1,77 @@
 let modelTimeoutId = null;
 let currentFetchController = null;
 
-// 🔹 משתנים גלובליים
+// משתנים גלובליים
 let lessonsData = {};
 let currentLessonIndex = 0;
 let currentTopicIndex = 0;
 let currentSubtopicIndex = null;
 let pyodide = null;
 
+// ✅ ניהול סימוני V
+const progressMap = {};
+
 // אתחול Pyodide
-async function startPyodide() {
+async function startPyodideAndLoad() {
   pyodide = await loadPyodide();
   console.log("✅ Pyodide loaded.");
 
-  // 📥 תמיכה בקלט של המשתמש (input())
   pyodide.setStdin({
-    readline: () => prompt("Enter input:")
+    readline: () => prompt("📝 Please enter your input below:") ?? ""
   });
 
   const runBtn = document.querySelector("button[onclick='runCode()']");
-  if (runBtn) runBtn.disabled = false; // הפעלת כפתור Run לאחר טעינה
+  if (runBtn) runBtn.disabled = false;
+
+  await loadLessons();
+
+  // ✅ אלו השורות החסרות:
+  renderLessonList();
+  renderProgressOverview();
 }
+
+
 
 async function loadLessons() {
-  const runBtn = document.querySelector("button[onclick='runCode()']");
-  if (runBtn) runBtn.disabled = true; // מניעת ריצה לפני טעינה
-
-  await startPyodide();
-
   try {
-    const [
-      res1, res2, res3, res4, res5,
-      res6, res7, res8, res9, res10
-    ] = await Promise.all([
-      fetch('/static/Lessons1_python.json'),
-      fetch('/static/Lessons2_python.json'),
-      fetch('/static/Lessons3_python.json'),
-      fetch('/static/Lessons4_python.json'),
-      fetch('/static/Lessons5_python.json'),
-      fetch('/static/Lessons6_python.json'),
-      fetch('/static/Lessons7_python.json'),
-      fetch('/static/Lessons8_python.json'),
-      fetch('/static/Lessons9_python.json'),
-      fetch('/static/Lessons10_python.json')
-    ]);
+    const urls = Array.from({ length: 10 }, (_, i) => `/static/Lessons${i + 1}_python.json`);
+    const lessons = [];
 
-    const data1 = await res1.json();
-    const data2 = await res2.json();
-    const data3 = await res3.json();
-    const data4 = await res4.json();
-    const data5 = await res5.json();
-    const data6 = await res6.json();
-    const data7 = await res7.json();
-    const data8 = await res8.json();
-    const data9 = await res9.json();
-    const data10 = await res10.json();
+    for (const url of urls) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          console.warn(`⚠️ Failed to fetch ${url}: ${res.status}`);
+          continue;
+        }
 
-    lessonsData.lessons = [
-      ...(data1.lessons || []),
-      ...(data2.lessons || []),
-      ...(data3.lessons || []),
-      ...(data4.lessons || []),
-      ...(data5.lessons || []),
-      ...(data6.lessons || []),
-      ...(data7.lessons || []),
-      ...(data8.lessons || []),
-      ...(data9.lessons || []),
-      ...(data10.lessons || [])
-    ];
+        const data = await res.json();
+        if (data.lessons) {
+          lessons.push(...data.lessons);
+        }
+      } catch (err) {
+        console.error(`❌ Error loading ${url}:`, err);
+      }
+    }
 
-    // ✅ קריאה לפונקציות הצגה רק אחרי שהנתונים נטענו
-    renderLessonList();
+    lessonsData.lessons = lessons;
+    
+    // 🚀 טען התקדמות אם קיימת
+    const savedProgress = localStorage.getItem("lessonProgress");
+    if (savedProgress) Object.assign(progressMap, JSON.parse(savedProgress));
+
     showCurrentTopic();
+    renderLessonList();
+
 
   } catch (err) {
-    console.error("Failed to load lessons:", err);
+    console.error("❌ Failed to load lessons (global):", err);
+    const output = document.getElementById("output");
+    if (output) {
+      output.innerText = "⚠️ Failed to load lessons. Please check your files.";
+    }
   }
 }
-
 
 // הצגת נושא נוכחי
 function showCurrentTopic() {
@@ -95,30 +89,36 @@ function showCurrentTopic() {
   const solutionBox = document.getElementById('solution-box');
   solutionBtn.onclick = toggleSolution;
 
+  let starterCode = '';
+
   if (isFinalPractice) {
     const sub = topic.subtopics[currentSubtopicIndex || 0];
     titleElement.textContent = sub.title;
     theoryElement.textContent = sub.theory || "";
     exampleElement.innerHTML = "";
     exerciseElement.innerHTML = "<strong>Exercise:</strong><br>" + (sub.exercise || '').replace(/\n/g, "<br>");
-    codeElement.value = "";
+    starterCode = sub.starter_code || '';
     solutionBtn.style.display = sub.solution ? 'inline-block' : 'none';
-    solutionBtn.textContent = 'Show Solution';
-    solutionBtn.dataset.visible = 'false';
-    solutionBox.style.display = 'none';
-    solutionBox.textContent = '';
   } else {
     titleElement.textContent = topic.title;
     theoryElement.textContent = topic.theory || '';
     exampleElement.innerHTML = isInFinalPracticeSection ? "" : "<strong>Try it:</strong><br>" + (topic.exercise || '').replace(/^Try it:\s*/i, '').replace(/\n/g, "<br>");
     exerciseElement.innerHTML = "";
-    codeElement.value = topic.starter_code || '';
+    starterCode = topic.starter_code || '';
     solutionBtn.style.display = topic.solution ? 'inline-block' : 'none';
-    solutionBtn.textContent = 'Show Solution';
-    solutionBtn.dataset.visible = 'false';
-    solutionBox.style.display = 'none';
-    solutionBox.textContent = '';
   }
+
+  codeElement.value = starterCode;
+
+  if (window.editor) {
+    window.editor.setValue(starterCode || "# 🚀 Try solving it on your own before viewing the solution!");
+  }
+
+
+  solutionBtn.textContent = 'Show Solution';
+  solutionBtn.dataset.visible = 'false';
+  solutionBox.style.display = 'none';
+  solutionBox.textContent = '';
 
   const progress = document.getElementById('progress');
   if (progress) {
@@ -127,7 +127,6 @@ function showCurrentTopic() {
 
   highlightActiveTopic();
 
-  // ✅ שליחת שאלה למודל – מבוקר עם ביטול ואיפוס המתנה
   if (modelTimeoutId) clearTimeout(modelTimeoutId);
   if (currentFetchController) currentFetchController.abort();
   modelTimeoutId = setTimeout(() => {
@@ -139,38 +138,61 @@ function showCurrentTopic() {
   }, 1000);
 }
 
-
 function toggleSolution() {
-  const codeBox = document.getElementById('code');
-  const btn = document.getElementById('solution-button');
-  const lesson = lessonsData.lessons[currentLessonIndex];
-  const topic = lesson.topics[currentTopicIndex];
+  const button = document.getElementById('solution-button');
 
-  let solutionCode = '';
+  const isVisible = button.dataset.visible === 'true';
 
-  if (topic.subtopics && Array.isArray(topic.subtopics)) {
-    const sub = topic.subtopics[currentSubtopicIndex || 0];
-    solutionCode = sub.solution || '';
+  if (isVisible) {
+    // אם נלחץ Hide Solution – ננקה את העורך
+    button.textContent = 'Show Solution';
+    button.dataset.visible = 'false';
+
+    // אופציונלי: מחזיר ל-starter code
+    const lesson = lessonsData.lessons[currentLessonIndex];
+    const topic = lesson.topics[currentTopicIndex];
+    const isFinalPractice = topic.subtopics && Array.isArray(topic.subtopics);
+    const sub = isFinalPractice ? topic.subtopics[currentSubtopicIndex || 0] : null;
+
+    const starterCode = isFinalPractice
+      ? (sub?.starter_code || '')
+      : (topic.starter_code || '');
+
+    const codeElement = document.getElementById('code');
+    if (codeElement) {
+      codeElement.value = starterCode;
+    }
+    if (window.editor) {
+      window.editor.setValue(starterCode || "# No starter code available.");
+    }
+
   } else {
-    solutionCode = topic.solution || '';
-  }
+    // נלחץ Show Solution – נטען את הפתרון לעורך
+    const lesson = lessonsData.lessons[currentLessonIndex];
+    const topic = lesson.topics[currentTopicIndex];
+    const isFinalPractice = topic.subtopics && Array.isArray(topic.subtopics);
+    const sub = isFinalPractice ? topic.subtopics[currentSubtopicIndex || 0] : null;
 
-  if (btn.dataset.visible === 'true') {
-    codeBox.value = '';
-    btn.textContent = 'Show Solution';
-    btn.dataset.visible = 'false';
-  } else {
-    codeBox.value = solutionCode;
-    btn.textContent = 'Hide Solution';
-    btn.dataset.visible = 'true';
+    const solutionText = isFinalPractice
+      ? (sub?.solution || '')
+      : (topic.solution || '');
+
+    const codeElement = document.getElementById('code');
+    if (codeElement) {
+      codeElement.value = solutionText;
+    }
+    if (window.editor) {
+      window.editor.setValue(solutionText || "# No solution provided for this topic.");
+    }
+
+    button.textContent = 'Hide Solution';
+    button.dataset.visible = 'true';
   }
 }
 
 
 
-
-
-
+// ... שאר הפונקציות נשמרות ללא שינוי ...
 
 function renderLessonList() {
   const lessonList = document.getElementById('lesson-list');
@@ -181,29 +203,78 @@ function renderLessonList() {
     lessonItem.style.marginBottom = '5px';
 
     const lessonTitle = document.createElement('div');
-    lessonTitle.textContent = lesson.title;
     lessonTitle.style.cursor = 'pointer';
+    lessonTitle.style.display = 'flex';
+    lessonTitle.style.alignItems = 'center';
+    lessonTitle.style.gap = '8px';
+    lessonTitle.style.justifyContent = 'space-between';
+
+    const leftContainer = document.createElement('div');
+    leftContainer.style.display = 'flex';
+    leftContainer.style.alignItems = 'center';
+    leftContainer.style.gap = '8px';
+
+    const lessonKey = `lesson${lessonIdx}`;
+
+
+    const titleSpan = document.createElement('span');
+    titleSpan.textContent = lesson.title;
+    titleSpan.classList.add('lesson-title-text');
+    leftContainer.appendChild(titleSpan);
+
+    lessonTitle.appendChild(leftContainer);
 
     const topicList = document.createElement('ul');
     topicList.style.display = 'none';
     topicList.style.marginTop = '5px';
     topicList.style.marginLeft = '15px';
 
-    lessonTitle.onclick = () => {
+    lessonTitle.addEventListener('click', (e) => {
+      if (e.target.classList.contains('v-icon')) return;
       const isOpen = lessonItem.classList.contains('open');
       document.querySelectorAll('#lesson-list li').forEach(li => li.classList.remove('open'));
       topicList.style.display = isOpen ? 'none' : 'block';
       lessonItem.classList.toggle('open', !isOpen);
-    };
+    });
 
     lesson.topics.forEach((topic, topicIdx) => {
       const topicItem = document.createElement('li');
-      topicItem.textContent = topic.title;
       topicItem.classList.add('topic-item');
       topicItem.setAttribute('data-lesson', lessonIdx);
       topicItem.setAttribute('data-topic', topicIdx);
+      topicItem.style.display = 'flex';
+      topicItem.style.alignItems = 'center';
+      topicItem.style.gap = '8px';
 
-      topicItem.onclick = () => {
+      const key = `lesson${lessonIdx}.topic${topicIdx}`;
+      const vIcon = document.createElement('span');
+      vIcon.textContent = '✔';
+      vIcon.classList.add('v-icon');
+      vIcon.classList.remove('enabled', 'auto-enabled');
+      if (topic.subtopics) {
+        vIcon.classList.toggle('auto-enabled', progressMap[key]);
+      } else {
+        vIcon.classList.toggle('enabled', progressMap[key]);
+        vIcon.onclick = (e) => {
+          e.stopPropagation();
+          progressMap[key] = !progressMap[key];
+if (topic.subtopics) {
+  vIcon.classList.toggle('auto-enabled', progressMap[key]);
+} else {
+  vIcon.classList.toggle('enabled', progressMap[key]);
+}
+          updateAutoChecks();
+        };
+      }
+      topicItem.appendChild(vIcon);
+
+      const titleSpan = document.createElement('span');
+      titleSpan.textContent = topic.title;
+      titleSpan.classList.add('topic-title-text');
+      topicItem.appendChild(titleSpan);
+
+      topicItem.onclick = (e) => {
+        if (e.target.classList.contains('v-icon')) return;
         currentLessonIndex = lessonIdx;
         currentTopicIndex = topicIdx;
         currentSubtopicIndex = null;
@@ -216,15 +287,37 @@ function renderLessonList() {
         topic.subtopics.forEach((subtopic, subIdx) => {
           if (typeof subtopic === 'object' && subtopic.title) {
             const subtopicItem = document.createElement('li');
-            subtopicItem.textContent = subtopic.title;
             subtopicItem.classList.add('topic-item');
+            subtopicItem.style.display = 'flex';
+            subtopicItem.style.alignItems = 'center';
+            subtopicItem.style.gap = '8px';
             subtopicItem.style.marginLeft = '20px';
-            subtopicItem.onclick = () => {
+
+            const key = `lesson${lessonIdx}.topic${topicIdx}.sub${subIdx}`;
+            const vIcon = document.createElement('span');
+            vIcon.textContent = '✔';
+            vIcon.classList.add('v-icon');
+            vIcon.classList.toggle('enabled', progressMap[key]);
+            vIcon.onclick = (e) => {
+              e.stopPropagation();
+              progressMap[key] = !progressMap[key];
+              vIcon.classList.toggle('enabled', progressMap[key]);
+              updateAutoChecks();
+            };
+            subtopicItem.appendChild(vIcon);
+
+            const titleSpan = document.createElement('span');
+            titleSpan.textContent = subtopic.title;
+            subtopicItem.appendChild(titleSpan);
+
+            subtopicItem.onclick = (e) => {
+              if (e.target.classList.contains('v-icon')) return;
               currentLessonIndex = lessonIdx;
               currentTopicIndex = topicIdx;
               currentSubtopicIndex = subIdx;
               showCurrentTopic();
             };
+
             topicList.appendChild(subtopicItem);
           }
         });
@@ -237,12 +330,150 @@ function renderLessonList() {
   });
 }
 
-function highlightActiveTopic() {
-  const allTopics = document.querySelectorAll('.topic-item');
-  allTopics.forEach(item => {
-    item.classList.remove('active');
+
+
+
+function renderProgressOverview() {
+  const container = document.getElementById('lesson-progress-overview');
+  container.innerHTML = ''; // איפוס קודם
+
+  lessonsData.lessons.forEach((lesson, lessonIdx) => {
+    const total = lesson.topics.reduce((sum, t) => sum + (t.subtopics ? t.subtopics.length : 1), 0);
+    const completed = lesson.topics.reduce((sum, t, i) => {
+      if (t.subtopics) {
+        return sum + t.subtopics.filter((_, j) => progressMap[`lesson${lessonIdx}.topic${i}.sub${j}`]).length;
+      } else {
+        return sum + (progressMap[`lesson${lessonIdx}.topic${i}`] ? 1 : 0);
+      }
+    }, 0);
+
+    const percent = total ? Math.round((completed / total) * 100) : 0;
+
+    const block = document.createElement('div');
+    block.classList.add('lesson-progress-container');
+
+    const title = document.createElement('div');
+    title.classList.add('lesson-title');
+    title.textContent = `Lesson ${lessonIdx + 1}`;
+    block.appendChild(title);
+
+    const bar = document.createElement('div');
+    bar.classList.add('progress-bar');
+
+    const inner = document.createElement('div');
+    inner.classList.add('progress-lessons');
+    inner.style.width = `${percent}%`;
+    bar.appendChild(inner);
+
+    block.appendChild(bar);
+    container.appendChild(block);
   });
 }
+
+
+function updateAutoChecks({ refreshLessons = false } = {}) {
+  const newMap = {};
+
+  // 🔒 שמירה על השיעור הפתוח
+  const openLesson = document.querySelector('#lesson-list li.open');
+  const openLessonIdx = openLesson ? Array.from(openLesson.parentElement.children).indexOf(openLesson) : null;
+
+  function isSubtopicComplete(subtopicKey) {
+    return !!progressMap[subtopicKey];
+  }
+
+  function isTopicComplete(lessonIdx, topicIdx, topic) {
+    if (topic.subtopics && Array.isArray(topic.subtopics)) {
+      return topic.subtopics.every((_, subIdx) =>
+        isSubtopicComplete(`lesson${lessonIdx}.topic${topicIdx}.sub${subIdx}`)
+      );
+    } else {
+      return !!progressMap[`lesson${lessonIdx}.topic${topicIdx}`];
+    }
+  }
+
+  function isLessonComplete(lesson, lessonIdx) {
+    return lesson.topics.every((topic, topicIdx) =>
+      isTopicComplete(lessonIdx, topicIdx, topic)
+    );
+  }
+
+  lessonsData.lessons.forEach((lesson, lessonIdx) => {
+    lesson.topics.forEach((topic, topicIdx) => {
+      if (isTopicComplete(lessonIdx, topicIdx, topic)) {
+        newMap[`lesson${lessonIdx}.topic${topicIdx}`] = true;
+
+        if (topic.subtopics) {
+          topic.subtopics.forEach((_, subIdx) => {
+            const key = `lesson${lessonIdx}.topic${topicIdx}.sub${subIdx}`;
+            if (progressMap[key]) newMap[key] = true;
+          });
+        }
+      } else {
+        if (topic.subtopics) {
+          topic.subtopics.forEach((_, subIdx) => {
+            const key = `lesson${lessonIdx}.topic${topicIdx}.sub${subIdx}`;
+            if (progressMap[key]) newMap[key] = true;
+          });
+        }
+      }
+    });
+
+    if (isLessonComplete(lesson, lessonIdx)) {
+      newMap[`lesson${lessonIdx}`] = true;
+    }
+  });
+
+  Object.keys(progressMap).forEach(key => delete progressMap[key]);
+  Object.assign(progressMap, newMap);
+  localStorage.setItem("lessonProgress", JSON.stringify(progressMap));
+
+  // 🔁 רינדור מותנה
+  if (refreshLessons) {
+    renderLessonList();
+
+    // 📂 החזרת השיעור שנשאר פתוח
+    if (openLessonIdx !== null) {
+      const allLessonItems = document.querySelectorAll('#lesson-list > li');
+      const reopened = allLessonItems[openLessonIdx];
+      if (reopened) {
+        reopened.classList.add('open');
+        const ul = reopened.querySelector('ul');
+        if (ul) ul.style.display = 'block';
+      }
+    }
+  }
+
+  // ✅ רענון סרגל התקדמות תמיד
+  renderProgressOverview();
+}
+
+
+
+
+function highlightActiveTopic() {
+  // הסרת הדגשה מכל הנושאים
+  const allTopics = document.querySelectorAll('.topic-item');
+  allTopics.forEach(item => item.classList.remove('active'));
+
+  // הסרת הדגשה מכל כותרות ה־Lesson
+  const allLessons = document.querySelectorAll('#lesson-list > li');
+  allLessons.forEach(item => item.classList.remove('active-lesson'));
+
+  // סימון הנושא הנבחר
+  const selector = `.topic-item[data-lesson="${currentLessonIndex}"][data-topic="${currentTopicIndex}"]`;
+  const currentItem = document.querySelector(selector);
+  if (currentItem) {
+    currentItem.classList.add('active');
+  }
+
+  // סימון כותרת ה־Lesson הנוכחי
+  const lessonItems = document.querySelectorAll('#lesson-list > li');
+  if (lessonItems[currentLessonIndex]) {
+    lessonItems[currentLessonIndex].classList.add('active-lesson');
+  }
+}
+
 
 function nextTopic() {
   const topics = lessonsData.lessons[currentLessonIndex].topics;
@@ -278,6 +509,15 @@ async function runCode() {
 
   let capturedOutput = "";
 
+  // ✅ קלט עם זיהוי Cancel
+  pyodide.setStdin({
+    readline: () => {
+      const input = prompt("📝 Please enter your input below:");
+      if (input === null) throw new Error("User cancelled input.");
+      return input;
+    }
+  });
+
   pyodide.setStdout({
     batched: (text) => capturedOutput += text + "\n"
   });
@@ -289,10 +529,36 @@ async function runCode() {
   try {
     await pyodide.runPythonAsync(code);
   } catch (err) {
-    capturedOutput += `❌ ${String(err)}\n`;
+    const msg = String(err);
+
+    if (msg.includes("User cancelled input.")) {
+      capturedOutput += "❌ Error: You cancelled the input dialog.\n";
+    } else if (msg.includes("EOFError")) {
+      capturedOutput += "❌ Error: No input was received. Please try again.\n";
+    } else if (msg.includes("ZeroDivisionError")) {
+      capturedOutput += "❌ Error: Cannot divide by zero.\n";
+    } else if (msg.includes("ValueError")) {
+      capturedOutput += "❌ Error: Invalid input. Please enter a valid number.\n";
+    } else if (msg.includes("TypeError")) {
+      capturedOutput += "❌ Error: Incompatible types used together.\n";
+    } else if (msg.includes("IndexError")) {
+      capturedOutput += "❌ Error: Index out of range.\n";
+    } else if (msg.includes("KeyError")) {
+      capturedOutput += "❌ Error: The specified key was not found in the dictionary.\n";
+    } else if (msg.includes("FileNotFoundError")) {
+      capturedOutput += "❌ Error: The file was not found.\n";
+    } else if (msg.includes("IndentationError")) {
+      capturedOutput += "❌ Error: Incorrect indentation. Please check code alignment.\n";
+    } else if (msg.includes("NameError")) {
+      capturedOutput += "❌ Error: Variable or function is not defined.\n";
+    } else if (msg.includes("SyntaxError")) {
+      capturedOutput += "❌ Error: Invalid syntax. Please check your code.\n";
+    } else {
+      capturedOutput += `❌ Error: ${msg}\n`;
+    }
   }
 
-  // פיצול לשורות בטוחות
+  // ✅ תצוגת שורות בטוחה
   outputElement.innerHTML = "";
   capturedOutput.split(/\r?\n/).forEach(line => {
     const div = document.createElement("div");
@@ -300,6 +566,8 @@ async function runCode() {
     outputElement.appendChild(div);
   });
 }
+
+
 
 function copyCode() {
   const codeBox = document.getElementById("code");
@@ -323,14 +591,19 @@ function copyCode() {
 
 function toggleTheme() {
   const body = document.body;
-  if (body.classList.contains('dark-mode')) {
+  const isDark = body.classList.contains('dark-mode');
+
+  if (isDark) {
     body.classList.remove('dark-mode');
     body.classList.add('light-mode');
+    monaco.editor.setTheme("vs");  // 🎨 מצב יום
   } else {
     body.classList.remove('light-mode');
     body.classList.add('dark-mode');
+    monaco.editor.setTheme("vs-dark");  // 🌙 מצב לילה
   }
 }
+
 
 function toggleNeonColor() {
   const colors = ['#00ffff', '#ff00ff', '#ffcc00', '#00ff99', '#ff3399', '#66ccff', '#ff6600'];
@@ -357,8 +630,3 @@ function toggleNeonColor() {
   if (topicExampleBox) topicExampleBox.style.border = 'none';
 
 }
-
-
-
-// ⬇️ הפעלת טעינת שיעורים כשדף נטען
-window.onload = loadLessons;

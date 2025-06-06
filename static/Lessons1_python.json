@@ -7,7 +7,7 @@
           "title": "Getting Started with Python",
           "theory": "Python is a high-level, interpreted programming language. It emphasizes code readability and simplicity, making it ideal for beginners and professionals alike. Python is used in web development, data science, automation, artificial intelligence, and more.\n\nExample: `x = 10` creates an integer variable with value 10.",
           "exercise": "1. Write and run a script that prints your name.",
-          "starter_code": "# This is your first Python program!\nprint(\"Hello, World!\")"
+          "starter_code": "# This is your first Python program!\nprint(\"Your Name\")"
         },
         {
           "title": "Data Type: int (Integer)",
@@ -43,7 +43,7 @@
           "title": "Printing Text",
           "theory": "The print() function displays text or information to the screen.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `print(\"Hello\")` will output the word Hello.",
           "exercise": "1. Use the print() function.\n2. Inside the parentheses, put your full name in quotes.\n3. Run the code and check that your full name appears correctly on the right.",
-          "starter_code": "print(\"Hello, world!\")"
+          "starter_code": "print(\"Full Name\")"
         },
         {
           "title": "Comments in Code",
@@ -115,7 +115,8 @@
           "title": "Type Conversion",
           "theory": "You can convert data types using functions like int(), float(), and str().\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `pi = 3.14` creates a float variable.\n\nExample: `name = \"Alice\"` creates a string variable.\n\nExample: `int(\"42\")` converts the string \"42\" into the number 42.",
           "exercise": "1. Ask the user to enter a number and convert it to an integer.\n2. Then multiply it by 2 and print the result.",
-          "starter_code": "number = \"42\"\nprint(int(number) + 10)"
+                    "starter_code": "number = input(\"Enter a number: \")\nprint(int(number) * 2)"
+
         },
         {
           "title": "String Concatenation",
