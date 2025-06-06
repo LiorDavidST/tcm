@@ -1,0 +1,122 @@
+{
+  "lessons": [
+    {
+      "title": "Lesson 7: Tuples, Sets, and String Methods",
+      "topics": [
+        {
+          "title": "Tuples",
+          "theory": "Tuples are immutable sequences. You define them using parentheses. Tuples can't be modified after creation.",
+          "exercise": "1. Create a tuple of three fruits.\n2. Print the last fruit.",
+          "starter_code": "fruits = (\"apple\", \"banana\", \"cherry\")\nprint(fruits[-1])"
+        },
+        {
+          "title": "Tuple Unpacking",
+          "theory": "Tuple unpacking lets you assign multiple variables at once from a tuple.",
+          "exercise": "1. Create a tuple of (name, age).\n2. Unpack and print them.",
+          "starter_code": "person = (\"Liam\", 25)\nname, age = person\nprint(name, age)"
+        },
+        {
+          "title": "Sets",
+          "theory": "Sets are collections of unique elements. They are unordered and don't allow duplicates.",
+          "exercise": "1. Create a set with repeated colors.\n2. Print the set.",
+          "starter_code": "colors = {\"red\", \"green\", \"red\", \"blue\"}\nprint(colors)"
+        },
+        {
+          "title": "Set Operations",
+          "theory": "You can combine or compare sets using union, intersection, and difference.",
+          "exercise": "1. Create two sets of animals.\n2. Show what animals are common.",
+          "starter_code": "a = {\"cat\", \"dog\", \"mouse\"}\nb = {\"dog\", \"rabbit\"}\nprint(a.intersection(b))"
+        },
+        {
+          "title": "String Methods",
+          "theory": "Common string methods include replace, split, join, startswith, endswith.",
+          "exercise": "1. Modify and analyze a sentence using at least 3 methods.",
+          "starter_code": "text = \"Hello world from Python\"\nprint(text.split())\nprint(text.replace(\"Python\", \"code\"))\nprint(text.startswith(\"Hello\"))"
+        },
+        {
+          "title": "String Length and Indexing",
+          "theory": "You can use len() to find string length and access characters with indexes.",
+          "exercise": "1. Print the first and last letters of a word.",
+          "starter_code": "word = \"Python\"\nprint(word[0])\nprint(word[-1])"
+        },
+        {
+          "title": "Final Practice – Tuples, Sets, and Strings",
+          "subtopics": [
+            {
+              "title": "Practice 1: Tuple Indexing",
+              "exercise": "1. Define a tuple with four numbers.\n2. Print the second number.",
+              "theory": "Access tuple elements using square brackets with index numbers.",
+              "solution": "numbers = (10, 20, 30, 40)\nprint(numbers[1])"
+            },
+            {
+              "title": "Practice 2: Tuple Length",
+              "exercise": "1. Create a tuple with your 5 favorite items.\n2. Print how many items are in the tuple.",
+              "theory": "Use len() to find the number of elements in a tuple.",
+              "solution": "items = (\"book\", \"pen\", \"phone\", \"wallet\", \"key\")\nprint(len(items))"
+            },
+            {
+              "title": "Practice 3: Coordinates Unpacking",
+              "exercise": "1. Create a tuple (5, 10).\n2. Unpack and print as x and y.",
+              "theory": "Tuple unpacking works left to right, matching each element.",
+              "solution": "coord = (5, 10)\nx, y = coord\nprint(x, y)"
+            },
+            {
+              "title": "Practice 4: Swapping Variables",
+              "exercise": "1. Swap values of two variables using tuple unpacking.",
+              "theory": "You can swap values directly: a, b = b, a",
+              "solution": "a = 3\nb = 7\na, b = b, a\nprint(a, b)"
+            },
+            {
+              "title": "Practice 5: Check Membership",
+              "exercise": "1. Create a set of fruits.\n2. Check if 'apple' is in the set.",
+              "theory": "Use the `in` keyword to test set membership.",
+              "solution": "fruits = {\"apple\", \"banana\", \"mango\"}\nprint(\"apple\" in fruits)"
+            },
+            {
+              "title": "Practice 6: Add to Set",
+              "exercise": "1. Add an item to a set of numbers.\n2. Print the set.",
+              "theory": "Use `.add()` to insert items into a set.",
+              "solution": "nums = {1, 2, 3}\nnums.add(4)\nprint(nums)"
+            },
+            {
+              "title": "Practice 7: Union of Sets",
+              "exercise": "1. Combine two sets of numbers using union().",
+              "theory": "union() merges two sets without duplicates.",
+              "solution": "a = {1, 2, 3}\nb = {3, 4, 5}\nprint(a.union(b))"
+            },
+            {
+              "title": "Practice 8: Difference of Sets",
+              "exercise": "1. Show numbers that are in set A but not in set B.",
+              "theory": "difference() returns only elements unique to the first set.",
+              "solution": "a = {1, 2, 3, 4}\nb = {2, 3}\nprint(a.difference(b))"
+            },
+            {
+              "title": "Practice 9: Use split and join",
+              "exercise": "1. Split a sentence to words.\n2. Join them with commas.",
+              "theory": "split() creates a list, join() makes a string.",
+              "solution": "s = \"This is a test\"\nwords = s.split()\nprint(\",\".join(words))"
+            },
+            {
+              "title": "Practice 10: Check endings",
+              "exercise": "1. Ask for a filename.\n2. Print if it ends with '.txt'.",
+              "theory": "endswith() checks string suffix.",
+              "solution": "file = input(\"Enter filename: \")\nprint(file.endswith(\".txt\"))"
+            },
+            {
+              "title": "Practice 11: Middle Character",
+              "exercise": "1. Input a word.\n2. Print its middle character.",
+              "theory": "Use len() and integer division to find middle index.",
+              "solution": "word = input(\"Enter a word: \")\nprint(word[len(word)//2])"
+            },
+            {
+              "title": "Practice 12: Character Loop",
+              "exercise": "1. Print each character of a string on a new line.",
+              "theory": "Use a loop to iterate over string characters.",
+              "solution": "text = input(\"Enter text: \")\nfor c in text:\n    print(c)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

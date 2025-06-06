@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCM - Software Solutions & Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <div class="logo">TCM</div>
+    <h1>Custom Solutions for Your Organization</h1>
+    <p>Software | Training | Consulting | Change</p>
+  </header>
+
+  <section class="section services-section">
+    <h2>Our Divisions</h2>
+    <div class="services">
+      <div class="service">SOFTWARE SOLUTIONS</div>
+      <a href="{{ url_for('academy') }}" class="service">TCM ACADEMY</a>
+    </div>
+  </section>
+
+  <section class="section contact">
+    <h2>Contact Us</h2>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="tel" name="phone" placeholder="Phone">
+      <textarea name="message" rows="4" placeholder="How can we help you?" required></textarea>
+      <button type="submit">Submit</button>
+
+      <div id="form-message" style="margin-top: 1rem; text-align: center; font-weight: bold;"></div>
+    </form>
+  </section>
+
+  <footer>
+    © 2025 TCM - All rights reserved
+  </footer>
+
+  <script type="module" src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+</body>
+</html>

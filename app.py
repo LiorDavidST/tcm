@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import send_from_directory, Flask, request, jsonify, render_template
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
 from runner import run_python_code
@@ -78,6 +78,11 @@ def send_mail():
     except Exception as e:
         print(f"❌ Error sending email: {e}")
         return f"error: {str(e)}", 500
+
+# 🔹 שירות קבצים סטטיים מהשורש (למשל: /stackframe.js)
+@app.route('/<path:filename>')
+def serve_static_file(filename):
+    return send_from_directory(app.static_folder, filename)
 
 # ✅ חשוב! הפעלת האפליקציה באופן ש-Render יוכל לזהות
 if __name__ == '__main__':
