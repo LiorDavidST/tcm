@@ -1,7 +1,7 @@
 {
   "lessons": [
     {
-      "title": "Lesson 9: Functions – Arguments, Scope, Lambda",
+      "title": "Lesson 9: Functions",
       "topics": [
         {
           "title": "*args",

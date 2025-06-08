@@ -125,7 +125,7 @@ body.light-mode #output {
 
 /* תיבת Output – שליטה בגובה ומרווח */
 .output-box {
-  height: 358px;            /* ⬅️ גובה קבוע לפי הצורך שלך */
+  height: 365px;            /* ⬅️ גובה קבוע לפי הצורך שלך */
   margin-bottom: 15px;      /* ⬅️ רווח לפני ה-TCM */
   display: flex;
   flex-direction: column;

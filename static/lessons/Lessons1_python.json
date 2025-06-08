@@ -5,124 +5,143 @@
       "topics": [
         {
           "title": "Getting Started with Python",
-          "theory": "Python is a high-level, interpreted programming language. It emphasizes code readability and simplicity, making it ideal for beginners and professionals alike. Python is used in web development, data science, automation, artificial intelligence, and more.\n\nExample: `x = 10` creates an integer variable with value 10.",
+          "theory": "Python is a high-level, interpreted programming language. It emphasizes code readability and simplicity, making it ideal for beginners and professionals alike. Python is used in web development, data science, automation, artificial intelligence, and more.",
           "exercise": "1. Write and run a script that prints your name.",
-          "starter_code": "# This is your first Python program!\nprint(\"Your Name\")"
+          "starter_code": "# This is your first Python program!\nprint(\"Your Name\")",
+          "locked": false
         },
         {
           "title": "Data Type: int (Integer)",
           "theory": "Integers are whole numbers like 5, -3, or 100.\n\nExample: `x = 10` creates an integer variable with value 10.",
           "exercise": "1. Create an integer variable and print it.\n2. Add and subtract two integers.",
-          "starter_code": "x = 10\ny = 5\nprint(x + y)\nprint(x - y)"
+          "starter_code": "x = 10\ny = 5\nprint(x + y)\nprint(x - y)",
+          "locked": false
         },
         {
           "title": "Data Type: float (Floating Point)",
-          "theory": "Floats are numbers with decimal points like 3.14, -0.5, or 100.0.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `pi = 3.14` creates a float variable.",
+          "theory": "Floats are numbers with decimal points like 3.14, -0.5, or 100.0.\n\nExample: `x = 7` creates an integer variable with value 7.\n\nExample: `pi = 3.14` creates a float variable.",
           "exercise": "1. Create a float variable and print it.\n2. Multiply and divide two float numbers.",
-          "starter_code": "a = 3.5\nb = 2.0\nprint(a * b)\nprint(a / b)"
+          "starter_code": "a = 3.5\nb = 2.0\nprint(a * b)\nprint(a / b)",
+          "locked": false
         },
         {
           "title": "Data Type: complex",
           "theory": "Complex numbers include a real and imaginary part, like 2 + 3j.\n\nExample: `z = 2 + 3j` where real part is 2 and imaginary is 3.",
           "exercise": "1. Create a complex number and print its real and imaginary parts.",
-          "starter_code": "z = 2 + 3j\nprint(z.real)\nprint(z.imag)"
+          "starter_code": "z = 2 + 3j\nprint(z.real)\nprint(z.imag)",
+          "locked": false
         },
         {
           "title": "Data Type: str (String)",
           "theory": "Strings are sequences of characters, like 'Hello' or \"World\".\n\nExample: `name = \"Alice\"` creates a string variable.",
           "exercise": "1. Create a string variable and concatenate it with another string.",
-          "starter_code": "greeting = \"Hello\"\nname = \"Python\"\nprint(greeting + \" \" + name)"
+          "starter_code": "greeting = \"Hello\"\nname = \"Python\"\nprint(greeting + \" \" + name)",
+          "locked": true
         },
         {
           "title": "Data Type: bool (Boolean)",
           "theory": "Booleans represent truth values: True or False. Used in conditions and logic.\n\nExample: `is_sunny = True` creates a boolean variable.",
           "exercise": "1. Create boolean variables and use logical operators like and, or, not.",
-          "starter_code": "is_raining = True\nhas_umbrella = False\nprint(is_raining and has_umbrella)\nprint(not is_raining)"
+          "starter_code": "is_raining = True\nhas_umbrella = False\nprint(is_raining and has_umbrella)\nprint(not is_raining)",
+          "locked": true
         },
         {
           "title": "Printing Text",
-          "theory": "The print() function displays text or information to the screen.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `print(\"Hello\")` will output the word Hello.",
+          "theory": "The print() function displays text or information to the screen.\n\nExample: `print(\"Hello\")` will output the word Hello.",
           "exercise": "1. Use the print() function.\n2. Inside the parentheses, put your full name in quotes.\n3. Run the code and check that your full name appears correctly on the right.",
-          "starter_code": "print(\"Full Name\")"
+          "starter_code": "print(\"Full Name\")",
+          "locked": true
         },
         {
           "title": "Comments in Code",
           "theory": "Comments start with the # symbol and are ignored during execution.\n\nExample: `# This is a comment` - this line will not run.",
           "exercise": "1. Write a comment above a line of code that prints a number.",
-          "starter_code": "# This is a comment\nprint(\"First program\")"
+          "starter_code": "# This is a comment\nprint(\"First program\")",
+          "locked": true
         },
         {
           "title": "Basic Variables",
           "theory": "Variables store data values. You can print a variable using the print() function.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `print(\"Hello\")` will output the word Hello.\n\nExample: `x = 5` assigns the number 5 to variable x.",
           "exercise": "1. Create a variable with your name and print it.",
-          "starter_code": "name = \"TCM\"\nprint(name)"
+          "starter_code": "name = \"TCM\"\nprint(name)",
+          "locked": true
         },
         {
           "title": "User Input",
           "theory": "The input() function allows the user to enter data during program execution.\n\nExample: `name = input(\"Enter your name: \")` asks the user to type their name.",
           "exercise": "1. Write a program that asks for your name and prints a greeting.",
-          "starter_code": "name = input(\"What is your name? \")\nprint(\"Hello \" + name)"
+          "starter_code": "name = input(\"What is your name? \")\nprint(\"Hello \" + name)",
+          "locked": true
         },
         {
           "title": "Basic Data Types",
           "theory": "Python has several basic data types: integers (int), floating-point numbers (float), strings (str), and booleans (bool).\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `pi = 3.14` creates a float variable.\n\nExample: `name = \"Alice\"` creates a string variable.\n\nExample: `is_sunny = True` creates a boolean variable.",
           "exercise": "1. Create one variable for each data type and print them all together.",
-          "starter_code": "age = 30\nheight = 1.75\nname = \"TCM\"\nis_student = True\nprint(age, height, name, is_student)"
+          "starter_code": "age = 30\nheight = 1.75\nname = \"TCM\"\nis_student = True\nprint(age, height, name, is_student)",
+          "locked": true
         },
         {
           "title": "Arithmetic: Addition (+)",
           "theory": "Addition adds two numbers together. Use the `+` operator.\n\nFor example: 5 + 3 gives 8.",
           "exercise": "1. Add two numbers and print the result.",
-          "starter_code": "a = 7\nb = 5\nprint(a + b)"
+          "starter_code": "a = 7\nb = 5\nprint(a + b)",
+          "locked": true
         },
         {
           "title": "Arithmetic: Subtraction (-)",
           "theory": "Subtraction finds the difference between two numbers. Use the `-` operator.\n\nFor example: 10 - 4 gives 6.",
           "exercise": "1. Subtract one number from another and print the result.",
-          "starter_code": "a = 10\nb = 4\nprint(a - b)"
+          "starter_code": "a = 10\nb = 4\nprint(a - b)",
+          "locked": true
         },
         {
           "title": "Arithmetic: Multiplication (*)",
           "theory": "Multiplication multiplies two numbers. Use the `*` operator.\n\nFor example: 6 * 3 gives 18.",
           "exercise": "1. Multiply two numbers and print the result.",
-          "starter_code": "a = 6\nb = 3\nprint(a * b)"
+          "starter_code": "a = 6\nb = 3\nprint(a * b)",
+          "locked": true
         },
         {
           "title": "Arithmetic: Division (/)",
           "theory": "Division divides one number by another. Use the `/` operator.\n\nFor example: 20 / 4 gives 5.0.",
           "exercise": "1. Divide two numbers and print the result.",
-          "starter_code": "a = 20\nb = 4\nprint(a / b)"
+          "starter_code": "a = 20\nb = 4\nprint(a / b)",
+          "locked": true
         },
         {
           "title": "Arithmetic: Integer Division (//)",
           "theory": "Integer division returns only the whole number part of a division result, ignoring any remainder. It uses the `//` operator.\n\nFor example:\n`17 / 3` gives `5.666...` (a float),\nbut `17 // 3` gives `5` (only the whole number part).\nThis is useful when you want to count how many full units fit into a value.\n\nFor example: 20 / 4 gives 5.0.\n\nFor example: 17 / 3 gives 5.666..., but 17 // 3 gives 5.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `pi = 3.14` creates a float variable.",
           "exercise": "1. Divide two numbers using integer division and print the result.",
-          "starter_code": "a = 17\nb = 3\nprint(a // b)"
+          "starter_code": "a = 17\nb = 3\nprint(a // b)",
+          "locked": true
         },
         {
           "title": "Arithmetic: Modulo (%)",
           "theory": "The modulo operator gives the remainder after division. Use the `%` operator.\n\nFor example: 20 / 4 gives 5.0.\n\nFor example: 17 % 3 gives 2, since 3 fits into 17 five times with 2 left over.\n\nExample: `x = 10` creates an integer variable with value 10.",
           "exercise": "1. Find the remainder of two numbers using `%` and print the result.",
-          "starter_code": "a = 17\nb = 3\nprint(a % b)"
+          "starter_code": "a = 17\nb = 3\nprint(a % b)",
+          "locked": true
         },
         {
           "title": "Arithmetic: Exponentiation (**)",
           "theory": "Exponentiation raises one number to the power of another. Use the `**` operator.\n\nFor example: 2 ** 3 gives 8, because 2 multiplied by itself 3 times is 8.",
           "exercise": "1. Raise a number to a power and print the result.",
-          "starter_code": "base = 2\npower = 3\nprint(base ** power)"
+          "starter_code": "base = 2\npower = 3\nprint(base ** power)",
+          "locked": true
         },
         {
           "title": "Type Conversion",
           "theory": "You can convert data types using functions like int(), float(), and str().\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `pi = 3.14` creates a float variable.\n\nExample: `name = \"Alice\"` creates a string variable.\n\nExample: `int(\"42\")` converts the string \"42\" into the number 42.",
           "exercise": "1. Ask the user to enter a number and convert it to an integer.\n2. Then multiply it by 2 and print the result.",
-                    "starter_code": "number = input(\"Enter a number: \")\nprint(int(number) * 2)"
-
+          "starter_code": "number = input(\"Enter a number: \")\nprint(int(number) * 2)",
+          "locked": true
         },
         {
           "title": "String Concatenation",
           "theory": "You can combine strings using the + operator or by using f-strings.\n\nExample: `name = \"Alice\"` creates a string variable.\n\nExample: `\"Hello\" + \" World\"` results in `Hello World`.",
           "exercise": "1. Create two string variables and print them as a single sentence.",
-          "starter_code": "first = \"Hello\"\nsecond = \"World\"\nprint(first + \" \" + second)\nname = \"Anna\"\nprint(f\"Hi {name}!\")"
+          "starter_code": "first = \"Hello\"\nsecond = \"World\"\nprint(first + \" \" + second)\nname = \"Anna\"\nprint(f\"Hi {name}!\")",
+          "locked": true
         },
         {
           "title": "Final Practice – Review All Topics",
@@ -132,45 +151,53 @@
               "title": "Practice 1: Printing Text",
               "exercise": "1. Write a line of code that prints a motivational sentence.",
               "solution": "print(\"You can do it!\")",
-              "theory": "The print() function displays text or information to the screen.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `print(\"Hello\")` will output the word Hello."
+              "theory": "The print() function displays text or information to the screen.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `print(\"Hello\")` will output the word Hello.",
+              "locked": true
             },
             {
               "title": "Practice 2: Variables and Types",
               "exercise": "1. Create a string variable for your city and print it.",
               "solution": "city = \"Athens\"\nprint(city)",
-              "theory": "Variables store data values, and each has a type like string, int, or float.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `pi = 3.14` creates a float variable.\n\nExample: `name = \"Alice\"` creates a string variable.\n\nExample: `x = 5` assigns the number 5 to variable x."
+              "theory": "Variables store data values, and each has a type like string, int, or float.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `pi = 3.14` creates a float variable.\n\nExample: `name = \"Alice\"` creates a string variable.\n\nExample: `x = 5` assigns the number 5 to variable x.",
+              "locked": true
             },
             {
               "title": "Practice 3: User Input",
               "exercise": "1. Ask the user for their favorite color and print it.",
               "solution": "color = input(\"What is your favorite color? \")\nprint(color)",
-              "theory": "The input() function allows the user to type something during execution.\n\nExample: `name = input(\"Enter your name: \")` asks the user to type their name."
+              "theory": "The input() function allows the user to type something during execution.\n\nExample: `name = input(\"Enter your name: \")` asks the user to type their name.",
+              "locked": true
             },
             {
               "title": "Practice 4: Arithmetic",
               "exercise": "1. Calculate and print the result of 15 + 27.",
               "solution": "print(15 + 27)",
-              "theory": "You can perform arithmetic using +, -, *, / to calculate numbers."
+              "theory": "You can perform arithmetic using +, -, *, / to calculate numbers.",
+              "locked": true
             },
             {
               "title": "Practice 5: String Operations",
               "exercise": "1. Combine your first and last name using string concatenation.",
               "solution": "first = \"John\"\nlast = \"Doe\"\nprint(first + \" \" + last)",
-              "theory": "You can join strings with + or format them using f-strings.\n\nExample: `name = \"Alice\"` creates a string variable."
+              "theory": "You can join strings with + or format them using f-strings.\n\nExample: `name = \"Alice\"` creates a string variable.",
+              "locked": true
             },
             {
               "title": "Practice 6: Type Conversion",
               "exercise": "1. Convert the string \"100\" into an integer and multiply it by 2.\n2. Print the result with a descriptive message.",
               "solution": "num = int(\"100\")\nresult = num * 2\nprint(\"The result is:\", result)",
-              "theory": "Use int(), str(), float() to convert values between types.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `pi = 3.14` creates a float variable.\n\nExample: `name = \"Alice\"` creates a string variable.\n\nExample: `int(\"42\")` converts the string \"42\" into the number 42."
+              "theory": "Use int(), str(), float() to convert values between types.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `pi = 3.14` creates a float variable.\n\nExample: `name = \"Alice\"` creates a string variable.\n\nExample: `int(\"42\")` converts the string \"42\" into the number 42.",
+              "locked": true
             },
             {
               "title": "Practice 7: Combined Exercise",
               "exercise": "1. Ask the user for their name and age, then print a message like 'Hi John, you are 25 years old.'\n2. Use f-string formatting to display the message clearly.",
               "solution": "name = input(\"Enter your name: \")\nprint(f\"You entered: {name}\")\nage = input(\"Enter your age: \")\nprint(f\"You entered: {age}\")\nmessage = f\"Hi {name}, you are {age} years old.\"\nprint(message)",
-              "theory": "You can combine input(), type conversion, and print() to build interactive scripts.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `print(\"Hello\")` will output the word Hello.\n\nExample: `name = input(\"Enter your name: \")` asks the user to type their name.\n\nExample: `int(\"42\")` converts the string \"42\" into the number 42."
+              "theory": "You can combine input(), type conversion, and print() to build interactive scripts.\n\nExample: `x = 10` creates an integer variable with value 10.\n\nExample: `print(\"Hello\")` will output the word Hello.\n\nExample: `name = input(\"Enter your name: \")` asks the user to type their name.\n\nExample: `int(\"42\")` converts the string \"42\" into the number 42.",
+              "locked": true
             }
-          ]
+          ],
+          "locked": true
         }
       ]
     }

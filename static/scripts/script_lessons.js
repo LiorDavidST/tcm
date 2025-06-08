@@ -251,7 +251,7 @@ function renderLessonList() {
 
       const key = `lesson${lessonIdx}.topic${topicIdx}`;
       const vIcon = document.createElement('span');
-      vIcon.textContent = '✔';
+      vIcon.textContent = topic.locked ? '🔒' : '✔';
       vIcon.className = 'v-icon'; // אפס את כל המחלקות הקודמות
 
       if (topic.subtopics) {
@@ -296,7 +296,7 @@ function renderLessonList() {
 
             const key = `lesson${lessonIdx}.topic${topicIdx}.sub${subIdx}`;
             const vIcon = document.createElement('span');
-            vIcon.textContent = '✔';
+            vIcon.textContent = topic.locked ? '🔒' : '✔';
             vIcon.className = 'v-icon';
             if (progressMap[key]) vIcon.classList.add('enabled');
 
@@ -550,22 +550,30 @@ async function runCode() {
 
 
 function copyCode() {
-  const codeBox = document.getElementById("code");
+  const editor = window.editor;  // גישה לעריכת Monaco Editor
+  const code = editor.getValue();  // קבלת הטקסט מה-Editor
   const confirmIcon = document.getElementById("copy-confirm");
 
-  navigator.clipboard.writeText(codeBox.value)
+  // ודא שיש תוכן להעתיק
+  if (!code) {
+    console.log("No code to copy!");
+    return;
+  }
+
+  navigator.clipboard.writeText(code)
     .then(() => {
       if (confirmIcon) {
-        confirmIcon.style.display = "inline";
+        confirmIcon.style.display = "inline";  // הצגת סימן הצלחה
         setTimeout(() => {
-          confirmIcon.style.display = "none";
+          confirmIcon.style.display = "none";  // הסתרת סימן הצלחה אחרי 3 שניות
         }, 3000);
       }
     })
     .catch(err => {
-      console.error("Failed to copy code:", err);
+      console.error("Failed to copy code:", err);  // טיפול בשגיאות אם ההעתקה נכשלה
     });
 }
+
 
 
 
