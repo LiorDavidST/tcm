@@ -625,8 +625,18 @@ function toggleNeonColor() {
 
 // ✅ הפעלת הסקריפט כשנטען במסמך (במקום window.onload)
 document.addEventListener("DOMContentLoaded", async () => {
-  await startPyodideAndLoad();
+  const script = document.createElement('script');
+  script.src = "https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js";
+  script.onload = async () => {
+    await startPyodideAndLoad();
+  };
+  script.onerror = () => {
+    console.error("❌ Failed to load pyodide.js from CDN");
+    alert("Failed to load Pyodide. Please check your internet connection.");
+  };
+  document.head.appendChild(script);
 });
+
 
 // 📌 חשיפת פונקציות ל־HTML
 window.runCode = runCode;
