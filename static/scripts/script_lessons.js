@@ -13,7 +13,9 @@ const progressMap = {};
 
 // אתחול Pyodide
 async function startPyodideAndLoad() {
-  pyodide = await loadPyodide();
+  pyodide = await loadPyodide({
+    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.1/full/"
+  });
   console.log("✅ Pyodide loaded.");
 
   pyodide.setStdin({
@@ -23,6 +25,8 @@ async function startPyodideAndLoad() {
   await loadLessons();
   renderLessonList();
   renderProgressOverview();
+
+
 
   // טען עורך Monaco רק לאחר שהעמוד וה־div נטענו
   require(['vs/editor/editor.main'], function () {
