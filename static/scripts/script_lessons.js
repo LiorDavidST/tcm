@@ -624,20 +624,17 @@ function toggleNeonColor() {
   if (topicExampleBox) topicExampleBox.style.border = 'none';
 
 }
-
-// ✅ הפעלת הסקריפט כשנטען במסמך (במקום window.onload)
 document.addEventListener("DOMContentLoaded", async () => {
-  const script = document.createElement('script');
-  script.src = "https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js";
-  script.onload = async () => {
-    await startPyodideAndLoad();
-  };
-  script.onerror = () => {
-    console.error("❌ Failed to load pyodide.js from CDN");
-    alert("Failed to load Pyodide. Please check your internet connection.");
-  };
-  document.head.appendChild(script);
+  if (typeof loadPyodide === 'undefined') {
+    console.error("❌ loadPyodide is not defined. Make sure pyodide.js is loaded in your HTML.");
+    alert("Pyodide not loaded.");
+    return;
+  }
+
+  await startPyodideAndLoad();
 });
+
+
 
 
 // 📌 חשיפת פונקציות ל־HTML
