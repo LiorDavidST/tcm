@@ -53,7 +53,7 @@ async function startPyodideAndLoad() {
       rulers: []
     });
   });
-}
+
 
 
 
