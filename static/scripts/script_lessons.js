@@ -14,7 +14,7 @@ const progressMap = {};
 // אתחול Pyodide
 async function startPyodideAndLoad() {
   pyodide = await loadPyodide({
-    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.1/full/"
+    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/"
   });
   console.log("✅ Pyodide loaded.");
 
@@ -25,6 +25,8 @@ async function startPyodideAndLoad() {
   await loadLessons();
   renderLessonList();
   renderProgressOverview();
+}
+
 
 
 
