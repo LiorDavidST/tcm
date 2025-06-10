@@ -522,13 +522,12 @@ async function runCode() {
 
   let capturedOutput = "";
 
-  pyodide.setStdin({
-    readline: () => {
-      const input = prompt("📝 Please enter your input below:");
-      if (input === null) throw new Error("User cancelled input.");
-      return input;
-    }
-  });
+  // ✅ הגדרת פונקציית input כך שתציג prompt רק כשנדרש עם הטקסט המתאים
+  await pyodide.runPythonAsync(`
+import builtins
+import js
+builtins.input = lambda prompt='': js.prompt(prompt)
+  `);
 
   pyodide.setStdout({
     batched: (text) => capturedOutput += text + "\n"
